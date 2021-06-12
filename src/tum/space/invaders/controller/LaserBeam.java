@@ -1,4 +1,4 @@
-package tum.space.invaders;
+package tum.space.invaders.controller;
 
 public class LaserBeam {
 

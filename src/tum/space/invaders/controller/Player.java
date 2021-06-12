@@ -1,6 +1,6 @@
-package tum.space.invaders;
+package tum.space.invaders.controller;
 
-import tum.space.invaders.spaceship.Spaceship;
+import tum.space.invaders.model.spaceship.Spaceship;
 
 public class Player {
 

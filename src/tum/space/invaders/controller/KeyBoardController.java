@@ -1,4 +1,4 @@
-package tum.space.invaders.usercontrol;
+package tum.space.invaders.controller;
 
 public class KeyBoardController {
 

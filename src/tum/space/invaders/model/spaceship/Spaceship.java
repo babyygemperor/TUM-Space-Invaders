@@ -1,6 +1,6 @@
-package tum.space.invaders.spaceship;
+package tum.space.invaders.model.spaceship;
 
-import tum.space.invaders.LaserBeam;
+import tum.space.invaders.controller.LaserBeam;
 
 import java.awt.geom.Point2D;
 

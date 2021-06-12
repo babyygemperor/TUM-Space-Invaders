@@ -1,4 +1,4 @@
-package tum.space.invaders.music;
+package tum.space.invaders.controller.music;
 
 public class BackgroundMusic extends Music {
 

@@ -1,8 +1,8 @@
-package tum.space.invaders;
+package tum.space.invaders.controller;
 
-import tum.space.invaders.music.Music;
-import tum.space.invaders.spaceship.EnemySpaceship;
-import tum.space.invaders.spaceship.PlayerSpaceship;
+import tum.space.invaders.controller.music.Music;
+import tum.space.invaders.model.spaceship.EnemySpaceship;
+import tum.space.invaders.model.spaceship.PlayerSpaceship;
 
 import java.util.List;
 

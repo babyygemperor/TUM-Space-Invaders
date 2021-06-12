@@ -1,4 +1,4 @@
-package tum.space.invaders.spaceship;
+package tum.space.invaders.model.spaceship;
 
 public class EnemySpaceship extends Spaceship {
 

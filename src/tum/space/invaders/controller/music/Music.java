@@ -1,4 +1,4 @@
-package tum.space.invaders.music;
+package tum.space.invaders.controller.music;
 
 public abstract class Music {
 

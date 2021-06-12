@@ -1,6 +1,6 @@
-package tum.space.invaders.gameview;
+package tum.space.invaders.view;
 
-import tum.space.invaders.GameBoard;
+import tum.space.invaders.controller.GameBoard;
 
 public class GameBoardUI {
 
