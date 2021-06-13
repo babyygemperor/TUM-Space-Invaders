@@ -8,9 +8,4 @@ public class BackgroundMusic extends Music {
         super(BACKGROUND_MUSIC);
     }
 
-    @Override
-    public void playMusic() {
-        super.playOnce();
-    }
-
 }
