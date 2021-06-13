@@ -1,11 +1,11 @@
 package tum.space.invaders.controller;
 
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import tum.space.invaders.model.spaceship.Spaceship;
 import tum.space.invaders.view.GameBoardUI;
 
-import java.awt.geom.Point2D;
 
 public class KeyBoardController {
 

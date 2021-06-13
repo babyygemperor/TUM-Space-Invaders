@@ -2,6 +2,7 @@ package tum.space.invaders.view;
 
 import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -13,7 +14,6 @@ import tum.space.invaders.controller.Observer;
 import tum.space.invaders.controller.music.BackgroundMusic;
 import tum.space.invaders.model.spaceship.Spaceship;
 
-import java.awt.geom.Point2D;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Timer;
