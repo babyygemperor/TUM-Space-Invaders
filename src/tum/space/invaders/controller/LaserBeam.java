@@ -3,7 +3,7 @@ package tum.space.invaders.controller;
 public class LaserBeam {
 
     private final static int SPEED = 10;
-    private String iconDirectory;
+    private String filePath = "LaserBeam.jpg";
     private boolean direction;      //TRUE -> direction is UP; FALSE -> direction is DOWN
 
     public LaserBeam() {
@@ -19,12 +19,12 @@ public class LaserBeam {
         this.direction = direction;
     }
 
-    public void setIconDirectory(String iconDirectory) {
-        this.iconDirectory = iconDirectory;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public String getIconDirectory() {
-        return iconDirectory;
+    public String getFilePath() {
+        return filePath;
     }
 
     public boolean getDirection() {
