@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import tum.space.invaders.GameOutcome;
 import tum.space.invaders.controller.GameBoard;
 import tum.space.invaders.controller.KeyBoardController;
+import tum.space.invaders.controller.Observer;
 import tum.space.invaders.controller.music.BackgroundMusic;
 import tum.space.invaders.model.spaceship.Spaceship;
 
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class GameBoardUI extends Canvas {
+public class GameBoardUI extends Canvas implements Observer {
 
     private static final Color BACKGROUND_COLOR = Color.BLACK;
 
@@ -32,7 +33,7 @@ public class GameBoardUI extends Canvas {
     }
 
     private GameBoard gameBoard;
-    private GameBoardToolBar gameBoardToolBar;
+    private final GameBoardToolBar gameBoardToolBar;
 
     private KeyBoardController keyBoardController;
 
@@ -172,5 +173,10 @@ public class GameBoardUI extends Canvas {
         this.gameTimer = new Timer();
         this.gameTimer.scheduleAtFixedRate(timerTask, 33, 33);
     }
-}
 
+    @Override
+    public void update() {
+        updateGame();
+    }
+
+}

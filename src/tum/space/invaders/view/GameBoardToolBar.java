@@ -20,15 +20,13 @@ public class GameBoardToolBar extends ToolBar {
         getItems().addAll(this.start, new Separator(), this.stop, new Separator(), this.score);
     }
 
-
-
     public void initialiseActions(GameBoardUI gameBoardUI) {
         this.start.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, """
 					WELCOME TUM TO SPACE INVADERS!
 					An excellent game brought to you by excellent students""", ButtonType.OK);
             alert.setTitle("Preface");
-            alert.setHeaderText("2020/21 BUMPER CARS");
+            alert.setHeaderText("2021 TUM Space Invaders");
 
             Optional<ButtonType> result = alert.showAndWait();
 

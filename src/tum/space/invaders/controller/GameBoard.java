@@ -5,8 +5,10 @@ import tum.space.invaders.GameOutcome;
 import tum.space.invaders.controller.music.Music;
 import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
+import tum.space.invaders.model.spaceship.Spaceship;
 
 import java.util.List;
+import java.util.Random;
 
 public class GameBoard {
 
@@ -25,8 +27,6 @@ public class GameBoard {
 
     public GameBoard(Dimension2D size) {
         this.size = size;
-
-
     }
 
     public boolean startGame() {
