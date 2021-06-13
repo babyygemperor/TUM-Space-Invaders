@@ -16,7 +16,8 @@ public abstract class Spaceship extends Subject {
 
     private Dimension2D size = new Dimension2D(50, 25);
 
-    public Spaceship() {
+    public Spaceship(String iconFilePath) {
+        this.iconFilePath = iconFilePath;
         this.direction = true;      //By default it has direction as right;
     }
 
