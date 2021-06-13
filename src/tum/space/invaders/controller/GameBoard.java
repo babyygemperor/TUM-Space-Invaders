@@ -27,6 +27,25 @@ public class GameBoard {
 
     public GameBoard(Dimension2D size) {
         this.size = size;
+        /*
+
+        FastCar playerCar = new FastCar(size);
+        this.player = new Player(playerCar);
+        this.player.setup();
+
+
+        this.covidCar = new CovidCar(this.size);
+
+        this.covidCar.setInfected(true);
+        this.covidCar.setWearingMask(false);
+
+        this.covidCar.setViralLoad(new Random().nextInt(COVID_POTENCY_SEED) + COVID_POTENCY_OFFSET);
+
+        this.cars.add(covidCar);
+
+        createCars();
+
+         */
     }
 
     public boolean startGame() {
