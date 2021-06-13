@@ -1,5 +1,7 @@
 package tum.space.invaders.controller;
 
+import javafx.geometry.Dimension2D;
+import tum.space.invaders.GameOutcome;
 import tum.space.invaders.controller.music.Music;
 import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
@@ -8,16 +10,23 @@ import java.util.List;
 
 public class GameBoard {
 
-    private int size;
+    private Dimension2D size;
     private int score;
 
-    private Music MusicPlayer;
+    private Music backgroundMusicPlayer;
+    private Music crashSoundEffectPlayer;
 
     private PlayerSpaceship playerSpaceship;
     private List<EnemySpaceship> enemySpaceships;
 
-    public GameBoard() {
-        //TODO initialise the game board
+    private GameOutcome gameOutcome = GameOutcome.RUNNING;
+
+    private boolean running;
+
+    public GameBoard(Dimension2D size) {
+        this.size = size;
+
+
     }
 
     public boolean startGame() {
@@ -34,7 +43,7 @@ public class GameBoard {
         //TODO implement the method to refresh the game board
     }
 
-    public int getSize() {
+    public Dimension2D getSize() {
         return size;
     }
 
@@ -50,12 +59,12 @@ public class GameBoard {
         return playerSpaceship;
     }
 
-    public Music getMusicPlayer() {
-        return MusicPlayer;
+    public Music getBackgroundMusicPlayer() {
+        return backgroundMusicPlayer;
     }
 
-    public void setMusicPlayer(Music musicPlayer) {
-        MusicPlayer = musicPlayer;
+    public void setBackgroundMusicPlayer(Music backgroundMusicPlayer) {
+        this.backgroundMusicPlayer = backgroundMusicPlayer;
     }
 
     public void setEnemySpaceships(List<EnemySpaceship> enemySpaceships) {
@@ -66,11 +75,27 @@ public class GameBoard {
         this.playerSpaceship = playerSpaceship;
     }
 
-    public void setSize(int size) {
+    public void setSize(Dimension2D size) {
         this.size = size;
     }
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public boolean isRunning() {
+        return this.running;
+    }
+
+    public void update() {
+        moveSpaceships();
+    }
+
+    private void moveSpaceships() {
+        //TODO the master logic goes here
+    }
+
+    public GameOutcome getGameOutcome() {
+        return gameOutcome;
     }
 }

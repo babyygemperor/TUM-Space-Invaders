@@ -1,5 +1,6 @@
 package tum.space.invaders.model.spaceship;
 
+import javafx.geometry.Dimension2D;
 import tum.space.invaders.controller.LaserBeam;
 
 import java.awt.geom.Point2D;
@@ -7,10 +8,12 @@ import java.awt.geom.Point2D;
 public abstract class Spaceship {
 
 
-    private String iconDirectory;
+    private String iconFilePath;
     private Point2D location;
     private boolean direction;      //TRUE if Direction is RIGHT, FALSE is Direction is LEFT
     private int SPEED;
+
+    private Dimension2D size = new Dimension2D(50, 25);
 
     public Spaceship() {
         this.direction = true;      //By default it has direction as right;
@@ -35,12 +38,12 @@ public abstract class Spaceship {
         //TODO implement the meme: you didn't see anything
     }
 
-    public void setIconDirectory(String iconDirectory) {
-        this.iconDirectory = iconDirectory;
+    public void setIconFilePath(String iconFilePath) {
+        this.iconFilePath = iconFilePath;
     }
 
-    public String getIconDirectory() {
-        return iconDirectory;
+    public String getIconFilePath() {
+        return iconFilePath;
     }
 
     public Point2D getLocation() {
@@ -63,4 +66,7 @@ public abstract class Spaceship {
         this.SPEED = SPEED;
     }
 
+    public Dimension2D getSize() {
+        return this.size;
+    }
 }
