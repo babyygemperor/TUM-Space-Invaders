@@ -7,6 +7,7 @@ import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
 import tum.space.invaders.model.spaceship.Spaceship;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,8 +19,9 @@ public class GameBoard {
     private Music backgroundMusicPlayer;
     private Music crashSoundEffectPlayer;
 
-    private PlayerSpaceship playerSpaceship;
+    private Player player;
     private List<EnemySpaceship> enemySpaceships;
+    private List<Spaceship> explodedSpaceships;
 
     private GameOutcome gameOutcome = GameOutcome.RUNNING;
 
@@ -27,25 +29,20 @@ public class GameBoard {
 
     public GameBoard(Dimension2D size) {
         this.size = size;
-        /*
 
-        FastCar playerCar = new FastCar(size);
-        this.player = new Player(playerCar);
+        this.enemySpaceships = new ArrayList<>();
+        this.explodedSpaceships = new ArrayList<>();
+
+
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship();
+        this.player = new Player(playerSpaceship);
         this.player.setup();
 
-
-        this.covidCar = new CovidCar(this.size);
-
-        this.covidCar.setInfected(true);
-        this.covidCar.setWearingMask(false);
-
-        this.covidCar.setViralLoad(new Random().nextInt(COVID_POTENCY_SEED) + COVID_POTENCY_OFFSET);
-
-        this.cars.add(covidCar);
-
         createCars();
+    }
 
-         */
+    private void createCars() {
+        //TODO create the enemy spaceships
     }
 
     public boolean startGame() {
@@ -75,7 +72,7 @@ public class GameBoard {
     }
 
     public PlayerSpaceship getPlayerSpaceship() {
-        return playerSpaceship;
+        return player.getPlayerSpaceship();
     }
 
     public Music getBackgroundMusicPlayer() {
@@ -90,8 +87,12 @@ public class GameBoard {
         this.enemySpaceships = enemySpaceships;
     }
 
-    public void setPlayerSpaceship(PlayerSpaceship playerSpaceship) {
-        this.playerSpaceship = playerSpaceship;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void setSize(Dimension2D size) {
