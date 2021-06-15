@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
 import tum.space.invaders.view.GameBoardToolBar;
 import tum.space.invaders.view.GameBoardUI;
 
@@ -17,6 +18,7 @@ public class TUMSpaceInvadersApplication extends Application {
 
         Pane layout = new Pane(gameBoardUI, gameBoardToolBar);
         Scene scene = new Scene(layout);
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardUI.getKeyBoardController().getKeyPressed());
 
         stage.setTitle("TUM Space Invaders");
         stage.setScene(scene);
