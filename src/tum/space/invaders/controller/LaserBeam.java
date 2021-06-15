@@ -1,5 +1,6 @@
 package tum.space.invaders.controller;
 
+import javafx.geometry.Point2D;
 import tum.space.invaders.controller.music.CrashSound;
 
 public class LaserBeam {
@@ -7,9 +8,11 @@ public class LaserBeam {
     private final static int SPEED = 10;
     private String filePath = "LaserBeam.jpg";
     private boolean direction;      //TRUE -> direction is UP; FALSE -> direction is DOWN
+    private Point2D location;
 
-    public LaserBeam(boolean direction) {
+    public LaserBeam(boolean direction, Point2D location) {
         this.direction = direction;
+        this.location = location;
     }
 
     public void hit() {
@@ -31,6 +34,14 @@ public class LaserBeam {
 
     public boolean getDirection() {
         return this.direction;
+    }
+
+    public Point2D getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point2D location) {
+        this.location = location;
     }
 
 }

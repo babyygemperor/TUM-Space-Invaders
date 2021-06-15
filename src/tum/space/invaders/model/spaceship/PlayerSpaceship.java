@@ -23,7 +23,7 @@ public class PlayerSpaceship extends Spaceship {
 
 	@Override
 	public LaserBeam shoot() {
-		LaserBeam laserbeam = new LaserBeam(true);
+		LaserBeam laserbeam = new LaserBeam(true, getLocation());
 		return laserbeam;
 	}
 
