@@ -3,14 +3,17 @@ package tum.space.invaders.model.spaceship;
 import tum.space.invaders.controller.LaserBeam;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import tum.space.invaders.controller.music.CrashSound;
 
 
 public class PlayerSpaceship extends Spaceship {
 
     private static final String FILE = "PlayerSpaceship.png";
+    CrashSound shotfx;
 
     public PlayerSpaceship(Dimension2D size) {
         super(FILE, size);
+        shotfx = new CrashSound();
     }
 
     @Override
@@ -23,6 +26,7 @@ public class PlayerSpaceship extends Spaceship {
 	@Override
 	public LaserBeam shoot() {
 		LaserBeam laserbeam = new LaserBeam(true, getLocation());
+		shotfx.playMusic();
 		return laserbeam;
 	}
 

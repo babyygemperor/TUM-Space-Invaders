@@ -24,8 +24,9 @@ public class KeyBoardController {
             controlledSpaceship.setDirection(false);
         } else if (keyPressed == KeyCode.RIGHT || keyPressed == KeyCode.D) {
             controlledSpaceship.setDirection(true);
-        } else if (keyPressed == KeyCode.SPACE) {
+        } else if (keyPressed == KeyCode.K) {
             controlledSpaceship.shoot();
+            System.out.println("Detected K");
         }
     }
 
