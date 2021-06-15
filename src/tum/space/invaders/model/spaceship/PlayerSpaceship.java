@@ -14,7 +14,7 @@ public class PlayerSpaceship extends Spaceship {
     @Override
     public void spawnSpaceShip(Dimension2D gameboardSize) {
         double x = (gameboardSize.getWidth() - getSize().getWidth()) * 0.5;
-        double y = (gameboardSize.getHeight() - getSize().getHeight()) * 0.2;
+        double y = (gameboardSize.getHeight() - getSize().getHeight()) * 0.8;
         super.setLocation(new Point2D(x, y));
     }
 
