@@ -50,7 +50,7 @@ public class GameBoardUI extends Canvas implements Observer {
     public void setup() {
         setupGameBoard();
         setupImageCache();
-        this.gameBoardToolBar.updateToolBarStatus(true);
+        this.gameBoardToolBar.updateToolBarStatus(false);
         paint();
     }
 
@@ -108,7 +108,7 @@ public class GameBoardUI extends Canvas implements Observer {
     public void startGame() {
         if (!this.gameBoard.isRunning()) {
             this.gameBoard.startGame();
-            this.gameBoardToolBar.updateToolBarStatus(true);
+            this.gameBoardToolBar.updateToolBarStatus(false);
             startTimer();
             paint();
         }
