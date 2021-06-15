@@ -108,7 +108,7 @@ public class GameBoardUI extends Canvas implements Observer {
     public void startGame() {
         if (!this.gameBoard.isRunning()) {
             this.gameBoard.startGame();
-            this.gameBoardToolBar.updateToolBarStatus(false);
+            this.gameBoardToolBar.updateToolBarStatus(true);
             startTimer();
             paint();
         }

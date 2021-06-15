@@ -58,7 +58,7 @@ public class GameBoardToolBar extends ToolBar {
 
     public void updateToolBarStatus(boolean running) {
         this.start.setDisable(running);
-        this.stop.setDisable(running);
+        this.stop.setDisable(!running);
     }
 
     public void refreshText(GameBoardUI gameBoardUI) {
