@@ -18,7 +18,7 @@ public class Subject {
         observers.remove(observer);
     }
 
-    protected void notifyObservers() {
+    protected void update() {
         observers.forEach(Observer::update);
     }
 

@@ -15,12 +15,15 @@ public abstract class Spaceship extends Subject {
     private boolean direction;      //TRUE if Direction is RIGHT, FALSE is Direction is LEFT
     private int SPEED;
 
-    private Dimension2D size = new Dimension2D(50, 25);
+    private final Dimension2D size = new Dimension2D(50, 25);
 
-    public Spaceship(String iconFilePath) {
+    public Spaceship(String iconFilePath, Dimension2D gameboardSize) {
         this.iconFilePath = iconFilePath;
         this.direction = true;      //By default it has direction as right;
+        spawnSpaceShip(gameboardSize);
     }
+
+    abstract void spawnSpaceShip(Dimension2D gameboardSize);
 
 
     public abstract LaserBeam shoot();
