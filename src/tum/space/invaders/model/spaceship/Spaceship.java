@@ -4,6 +4,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import tum.space.invaders.controller.LaserBeam;
 import tum.space.invaders.controller.Subject;
+import tum.space.invaders.controller.music.CrashSound;
 
 
 public abstract class Spaceship extends Subject {
@@ -22,10 +23,7 @@ public abstract class Spaceship extends Subject {
     }
 
 
-    public LaserBeam shoot() {
-        //TODO implement the laser beam method
-        return new LaserBeam();
-    }
+    public abstract LaserBeam shoot();
 
     public void move() {
         //TODO implement the movement
