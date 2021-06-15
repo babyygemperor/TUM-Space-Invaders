@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameBoard {
+public class GameBoard extends Subject{
 
     private Dimension2D size;
     private int score;
@@ -34,7 +34,7 @@ public class GameBoard {
         this.explodedSpaceships = new ArrayList<>();
 
 
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship();
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(this.size);
         this.player = new Player(playerSpaceship);
         this.player.setup();
 
@@ -42,21 +42,28 @@ public class GameBoard {
     }
 
     private void createCars() {
-        //TODO create the enemy spaceships
+        EnemySpaceship enemy = new EnemySpaceship(this.size);
+        enemySpaceships.add(enemy);
     }
 
     public boolean startGame() {
-        //TODO start the game, boolean, to report if it was successfully started or not
-        return false;
+        playMusic();
+        this.running = true;
+        return true;
+    }
+
+    private void playMusic() {
+        this.backgroundMusicPlayer.playMusic();
     }
 
     public boolean stopGame() {
-        //TODO implement the method to stop the game, if it was successfully started or not
-        return false;
+        stopMusic();
+        this.running = false;
+        return true;
     }
 
-    public void refreshGameBoard() {
-        //TODO implement the method to refresh the game board
+    private void stopMusic() {
+        this.backgroundMusicPlayer.stopMusic();
     }
 
     public Dimension2D getSize() {
@@ -107,6 +114,7 @@ public class GameBoard {
         return this.running;
     }
 
+    @Override
     public void update() {
         moveSpaceships();
     }
