@@ -1,8 +1,6 @@
 package tum.space.invaders.controller;
 
-import javafx.geometry.Point2D;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
-import tum.space.invaders.model.spaceship.Spaceship;
 
 public class Player {
 
@@ -21,7 +19,7 @@ public class Player {
     }
 
     public void setup() {
-        playerSpaceship.setLocation(new Point2D(1, 4));
+        //Genuinely don't know why I added it
     }
 
 }

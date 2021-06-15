@@ -1,6 +1,5 @@
 package tum.space.invaders.model.spaceship;
 
-
 import tum.space.invaders.controller.LaserBeam;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
