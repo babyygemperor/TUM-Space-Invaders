@@ -10,12 +10,14 @@ import tum.space.invaders.view.GameBoardUI;
 public class KeyBoardController {
 
     private final Spaceship controlledSpaceship;
+    private final GameBoardUI gameBoardUI;
 
     public KeyBoardController(GameBoardUI gameBoardUI, Spaceship controlledSpaceship) {
+        this.gameBoardUI = gameBoardUI;
         this.controlledSpaceship = controlledSpaceship;
     }
 
-    private EventHandler<KeyEvent> keyPressed = new EventHandler<>() {
+    private final EventHandler<KeyEvent> keyPressed = new EventHandler<>() {
 
         @Override
         public void handle(KeyEvent keyEvent) {
