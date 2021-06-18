@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameBoard extends Subject{
+public class GameBoard {
 
     private Dimension2D size;
     private int score;
@@ -117,13 +117,13 @@ public class GameBoard extends Subject{
     }
 
 
-    @Override
     public void update() {
         moveSpaceships();
     }
 
     private void moveSpaceships() {
         //TODO the master logic goes here
+        player.move();
     }
 
     public GameOutcome getGameOutcome() {

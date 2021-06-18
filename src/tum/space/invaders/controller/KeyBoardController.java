@@ -21,12 +21,16 @@ public class KeyBoardController {
 
         @Override
         public void handle(KeyEvent keyEvent) {
-            if (keyEvent.getCode() == KeyCode.LEFT || keyEvent.getCode() == KeyCode.A) {
-                controlledSpaceship.setDirection(false);
-            } else if (keyEvent.getCode() == KeyCode.RIGHT || keyEvent.getCode() == KeyCode.D) {
-                controlledSpaceship.setDirection(true);
-            } else if (keyEvent.getCode() == KeyCode.K) {
-                if (gameBoardUI.getGameBoard().isRunning()) {
+            if (gameBoardUI.getGameBoard().isRunning()) {
+                if (keyEvent.getCode() == KeyCode.A) {
+                    controlledSpaceship.setDirection(false);
+                    controlledSpaceship.move();
+                    controlledSpaceship.update();
+                } else if (keyEvent.getCode() == KeyCode.D) {
+                    controlledSpaceship.setDirection(true);
+                    controlledSpaceship.move();
+                    controlledSpaceship.update();
+                } else if (keyEvent.getCode() == KeyCode.K) {
                     controlledSpaceship.shoot();
                     gameBoardUI.getGameBoard().setScore(gameBoardUI.getGameBoard().getScore() + 1);
                 }

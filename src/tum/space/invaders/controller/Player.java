@@ -22,4 +22,8 @@ public class Player {
         //Genuinely don't know why I added it
     }
 
+    public void move() {
+
+    }
+
 }

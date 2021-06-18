@@ -31,4 +31,19 @@ public class PlayerSpaceship extends Spaceship {
 		return laserbeam;
 	}
 
+    @Override
+    public void move() {
+        Point2D currentPosition = getLocation();
+
+        Point2D newPosition;
+
+        if (getDirection()) { //If direction is right
+            newPosition = new Point2D(currentPosition.getX() + getGameboardSize().getWidth() * 0.005, currentPosition.getY());
+        } else {
+            newPosition = new Point2D(currentPosition.getX() - getGameboardSize().getWidth() * 0.005, currentPosition.getY());
+        }
+
+        setLocation(newPosition);
+    }
+
 }

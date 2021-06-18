@@ -22,8 +22,12 @@ public class EnemySpaceship extends Spaceship {
 
 	@Override
 	public LaserBeam shoot() {
-		LaserBeam laserbeam = new LaserBeam(false, getLocation());
-		return laserbeam;
+        return new LaserBeam(false, getLocation());
 	}
+
+    @Override
+    public void move() {
+
+    }
 
 }

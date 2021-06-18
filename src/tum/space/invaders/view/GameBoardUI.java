@@ -87,6 +87,8 @@ public class GameBoardUI extends Canvas implements Observer {
         heightProperty().setValue(size.getHeight());
         this.keyBoardController = new KeyBoardController(this, this.gameBoard.getPlayerSpaceship());
 
+        this.gameBoard.getPlayerSpaceship().addObserver(this);
+        this.gameBoard.getEnemySpaceships().forEach(spaceship -> spaceship.addObserver(this));
     }
 
     public void moveSpaceship() {
