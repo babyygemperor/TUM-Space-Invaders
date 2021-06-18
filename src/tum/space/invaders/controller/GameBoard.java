@@ -29,6 +29,7 @@ public class GameBoard extends Subject{
 
     public GameBoard(Dimension2D size) {
         this.size = size;
+        this.score = 0;
 
         this.enemySpaceships = new ArrayList<>();
         this.explodedSpaceships = new ArrayList<>();
@@ -110,9 +111,11 @@ public class GameBoard extends Subject{
         this.score = score;
     }
 
+
     public boolean isRunning() {
         return this.running;
     }
+
 
     @Override
     public void update() {

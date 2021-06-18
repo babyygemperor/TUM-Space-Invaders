@@ -9,16 +9,17 @@ import tum.space.invaders.controller.music.CrashSound;
 public class PlayerSpaceship extends Spaceship {
 
     private static final String FILE = "PlayerSpaceship.png";
-    CrashSound shotfx;
+    private final CrashSound shotfx;
 
     public PlayerSpaceship(Dimension2D size) {
         super(FILE, size);
+        setSize(new Dimension2D(75, 38));
         shotfx = new CrashSound();
     }
 
     @Override
     public void spawnSpaceShip(Dimension2D gameboardSize) {
-        double x = (gameboardSize.getWidth() - getSize().getWidth()) * 0.5;
+        double x = (gameboardSize.getWidth() - getSize().getWidth()) * 0.49;
         double y = (gameboardSize.getHeight() - getSize().getHeight()) * 0.8;
         super.setLocation(new Point2D(x, y));
     }

@@ -15,7 +15,7 @@ public abstract class Spaceship extends Subject {
     private boolean direction;      //TRUE if Direction is RIGHT, FALSE is Direction is LEFT
     private int SPEED;
 
-    private final Dimension2D size = new Dimension2D(50, 25);
+    private Dimension2D size = new Dimension2D(50, 25);
 
     public Spaceship(String iconFilePath, Dimension2D gameboardSize) {
         this.iconFilePath = iconFilePath;
@@ -72,4 +72,9 @@ public abstract class Spaceship extends Subject {
     public Dimension2D getSize() {
         return this.size;
     }
+
+    public void setSize(Dimension2D size) {
+        this.size = size;
+    }
+
 }

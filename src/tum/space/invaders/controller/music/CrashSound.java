@@ -10,7 +10,8 @@ public class CrashSound extends Music {
 
     @Override
     public void playMusic() {
-        super.stopMusic();
+        //super.stopMusic();
+        super.reset();
         super.playOnce();
     }
 

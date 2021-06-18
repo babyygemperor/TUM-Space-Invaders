@@ -3,10 +3,12 @@ package tum.space.invaders.view;
 import javafx.application.Platform;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import tum.space.invaders.GameOutcome;
 import tum.space.invaders.controller.GameBoard;
 import tum.space.invaders.controller.KeyBoardController;
@@ -24,8 +26,8 @@ public class GameBoardUI extends Canvas implements Observer {
     private static final Color BACKGROUND_COLOR = Color.BLACK;
 
     private static final int UPDATE_PERIOD = 33;
-    private static final int DEFAULT_WIDTH = 500;
-    private static final int DEFAULT_HEIGHT = 300;
+    private static final int DEFAULT_WIDTH = 1280;
+    private static final int DEFAULT_HEIGHT = 720;
     private static final Dimension2D DEFAULT_SIZE = new Dimension2D(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
     public static Dimension2D getPreferredSize() {
@@ -75,7 +77,10 @@ public class GameBoardUI extends Canvas implements Observer {
     }
 
     private void setupGameBoard() {
-        Dimension2D size = getPreferredSize();
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getBounds();
+        Dimension2D size = new Dimension2D(bounds.getWidth(), bounds.getHeight());
+        //Dimension2D size =
         this.gameBoard = new GameBoard(size);
         this.gameBoard.setBackgroundMusicPlayer(new BackgroundMusic());
         widthProperty().setValue(size.getWidth());

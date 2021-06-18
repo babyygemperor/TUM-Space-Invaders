@@ -3,6 +3,7 @@ package tum.space.invaders.controller.music;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.net.URL;
 
@@ -30,9 +31,12 @@ public abstract class Music {
         if (isPlayingMusic()) {
             return;
         }
-
-        this.musicPlayer.setCycleCount(1);
+        //this.musicPlayer.setCycleCount(1);
         this.musicPlayer.play();
+    }
+
+    public void reset() {
+        this.musicPlayer.seek(Duration.ZERO);
     }
 
     public void stopMusic() {

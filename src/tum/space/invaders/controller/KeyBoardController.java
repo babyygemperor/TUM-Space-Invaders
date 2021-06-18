@@ -26,7 +26,10 @@ public class KeyBoardController {
             } else if (keyEvent.getCode() == KeyCode.RIGHT || keyEvent.getCode() == KeyCode.D) {
                 controlledSpaceship.setDirection(true);
             } else if (keyEvent.getCode() == KeyCode.K) {
-                controlledSpaceship.shoot();
+                if (gameBoardUI.getGameBoard().isRunning()) {
+                    controlledSpaceship.shoot();
+                    gameBoardUI.getGameBoard().setScore(gameBoardUI.getGameBoard().getScore() + 1);
+                }
             }
         }
     };
