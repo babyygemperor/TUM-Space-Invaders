@@ -1,5 +1,3 @@
-import javafx.geometry.Dimension2D;
-import javafx.geometry.Point2D;
 import org.easymock.EasyMockExtension;
 import javafx.embed.swing.JFXPanel;
 import org.easymock.Mock;
@@ -20,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(EasyMockExtension.class)
 public class ShootingTests {
+
+    //Added 1 Mock test
 
     @BeforeAll
     public static void setup() {
