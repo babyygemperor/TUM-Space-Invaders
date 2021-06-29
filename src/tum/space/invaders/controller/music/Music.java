@@ -26,7 +26,7 @@ public abstract class Music {
         this.musicPlayer.play();
     }
 
-    public void playOnce() {
+    protected void playOnce() {
         if (isPlayingMusic()) {
             return;
         }

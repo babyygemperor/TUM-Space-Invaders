@@ -30,8 +30,6 @@ public class TUMSpaceInvadersApplication extends Application {
         Pane layout = new Pane(gameBoardUI, gameBoardToolBar);
         Scene scene = new Scene(layout);
 
-
-
         scene.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardUI.getKeyBoardController().getKeyPressed());
 
         stage.setTitle("TUM Space Invaders");
