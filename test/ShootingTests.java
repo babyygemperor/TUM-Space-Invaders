@@ -35,7 +35,7 @@ public class ShootingTests {
     private LaserBeamShooting laserBeamMock;
 
     @Test
-    public void successfulShootTest() {
+    public void laserBeamShootingMockTest() {
         int expectedScore = gameBoard.getScore() + 1;
         PlayerSpaceship playerSpaceship = new PlayerSpaceship(gameBoard, GameBoardUI.getPreferredSize());
 
