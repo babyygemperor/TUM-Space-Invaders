@@ -18,6 +18,14 @@ public class ShootingTests {
     public static void setup() {
         final JFXPanel fxPanel = new JFXPanel();
     }
-
-
+    @TestSubject 
+    private GameBoard gameBoard = new GameBoard(new Dimension2D(10.0, 10.0));
+    @Mock
+    private LaserBeam laserBeamMock;
+    @Test
+    public void successfulHitTest() {
+    	
+    	expect(laserBeamMock.hit()).andReturn(true);
+    	replay(laserBeamMock);
+    }
 }

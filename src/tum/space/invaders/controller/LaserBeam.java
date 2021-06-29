@@ -14,8 +14,9 @@ public class LaserBeam {
         this.location = location;
     }
 
-    public void hit() {
+    public boolean hit() {
         //TODO implement the logic for getting hti
+    	return false;
     }
 
 
