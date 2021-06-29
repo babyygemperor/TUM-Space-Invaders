@@ -34,7 +34,7 @@ public class GameBoard {
         this.explodedSpaceships = new ArrayList<>();
 
 
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship(this.size);
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(this, this.size);
         this.player = new Player(playerSpaceship);
         this.player.setup();
 
@@ -110,11 +110,9 @@ public class GameBoard {
         this.score = score;
     }
 
-
     public boolean isRunning() {
         return this.running;
     }
-
 
     public void update() {
         moveSpaceships();

@@ -3,6 +3,7 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import tum.space.invaders.controller.GameBoard;
 import tum.space.invaders.controller.Player;
 import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
@@ -22,7 +23,7 @@ public class SpaceShipTests {
 
     @Test
     public void testPlayerSpaceshipSize() {
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship(GameBoardUI.getPreferredSize());
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(new GameBoard(GameBoardUI.getPreferredSize()), GameBoardUI.getPreferredSize());
 
         assertEquals(new Dimension2D(75, 38), playerSpaceship.getSize());
         assertEquals(new Dimension2D(1280, 720), playerSpaceship.getGameboardSize());
@@ -30,7 +31,7 @@ public class SpaceShipTests {
 
     @Test
     public void testPlayerSpaceshipMetadata() {
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship(GameBoardUI.getPreferredSize());
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(new GameBoard(GameBoardUI.getPreferredSize()), GameBoardUI.getPreferredSize());
 
         assertEquals("PlayerSpaceship.png", playerSpaceship.getIconFilePath());
         assertEquals(0, playerSpaceship.getSPEED());
@@ -40,7 +41,7 @@ public class SpaceShipTests {
 
     @Test
     public void testPlayerProperties() {
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship(GameBoardUI.getPreferredSize());
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(new GameBoard(GameBoardUI.getPreferredSize()), GameBoardUI.getPreferredSize());
         Player player = new Player(playerSpaceship);
 
         assertEquals(playerSpaceship, player.getPlayerSpaceship());
@@ -73,7 +74,7 @@ public class SpaceShipTests {
     @Test
     public void movementTest() {
         Dimension2D gameBoardSize = GameBoardUI.getPreferredSize();
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship(gameBoardSize);
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(new GameBoard(GameBoardUI.getPreferredSize()), GameBoardUI.getPreferredSize());
         double newPosition;
 
         assertEquals(new Point2D(602.7, 556), playerSpaceship.getLocation());

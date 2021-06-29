@@ -3,10 +3,11 @@ package tum.space.invaders.model.spaceship;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import tum.space.invaders.controller.LaserBeam;
+import tum.space.invaders.controller.LaserBeamShooting;
 import tum.space.invaders.controller.Subject;
 
 
-public abstract class Spaceship extends Subject {
+public abstract class Spaceship extends Subject implements LaserBeamShooting {
 
 
     private String iconFilePath;

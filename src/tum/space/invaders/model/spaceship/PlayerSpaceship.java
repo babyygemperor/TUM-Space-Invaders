@@ -2,17 +2,21 @@ package tum.space.invaders.model.spaceship;
 
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+import tum.space.invaders.controller.GameBoard;
 import tum.space.invaders.controller.LaserBeam;
+import tum.space.invaders.controller.LaserBeamShooting;
 import tum.space.invaders.controller.music.CrashSound;
 
 
-public class PlayerSpaceship extends Spaceship {
+public class PlayerSpaceship extends Spaceship implements LaserBeamShooting {
 
     private static final String FILE = "PlayerSpaceship.png";
     private final CrashSound shotfx;
+    private final GameBoard gameBoard;
 
-    public PlayerSpaceship(Dimension2D size) {
+    public PlayerSpaceship(GameBoard gameBoard, Dimension2D size) {
         super(FILE, size);
+        this.gameBoard = gameBoard;
         setSize(new Dimension2D(75, 38));
         shotfx = new CrashSound();
     }
@@ -28,6 +32,7 @@ public class PlayerSpaceship extends Spaceship {
 	public LaserBeam shoot() {
 		LaserBeam laserbeam = new LaserBeam(true, getLocation());
 		shotfx.playMusic();
+		gameBoard.setScore(gameBoard.getScore() + 1);
 		return laserbeam;
 	}
 

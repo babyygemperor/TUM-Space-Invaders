@@ -32,7 +32,6 @@ public class KeyBoardController {
                     controlledSpaceship.update();
                 } else if (keyEvent.getCode() == KeyCode.K) {
                     controlledSpaceship.shoot();
-                    gameBoardUI.getGameBoard().setScore(gameBoardUI.getGameBoard().getScore() + 1);
                 }
             }
         }
