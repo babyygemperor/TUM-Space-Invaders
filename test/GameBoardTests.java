@@ -12,6 +12,8 @@ public class GameBoardTests {
 
     //1 Test for testing the properties of the GameBoard
 
+    //Note: This setup exists because of a bug in JavaFX which says that the MediaPlayer is uninitialised. This is a bodge to it
+    //It is perfectly normal for a new JavaFX window to open because of it and instantly close as well. It's a bodge
     @BeforeAll
     public static void setup() {
         final JFXPanel fxPanel = new JFXPanel();
