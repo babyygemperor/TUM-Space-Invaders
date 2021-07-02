@@ -4,11 +4,10 @@ import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import tum.space.invaders.controller.GameBoard;
 import tum.space.invaders.controller.LaserBeam;
-import tum.space.invaders.controller.LaserBeamShooting;
 import tum.space.invaders.controller.music.CrashSound;
 
 
-public class PlayerSpaceship extends Spaceship implements LaserBeamShooting {
+public class PlayerSpaceship extends Spaceship {
 
     private static final String FILE = "PlayerSpaceship.png";
     private final CrashSound shotfx;
