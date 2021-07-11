@@ -47,6 +47,7 @@ public class GameBoard {
 		createCars();
 	}
 
+	// creates a nice lineup of enemyspaceships
 	private void createCars() {
 		for (double x = 0; x < 12.0; x++) {
 			for (double y = 0; y < 5.0; y++) {
@@ -165,7 +166,7 @@ public class GameBoard {
 			Point2D p1 = laserBeam.getLocation();
 			Dimension2D d1 = laserBeam.getSize();
 
-			// TODO do not use equals (hitbox)
+			// detects if a Laserbeam hits an enemyspaceships hitbox
 			for (EnemySpaceship enemySpaceship : this.enemySpaceships) {
 
 				Point2D p2 = enemySpaceship.getLocation();
@@ -185,7 +186,7 @@ public class GameBoard {
 					explodedLaserbeams.add(laserBeam);
 				}
 			}
-
+			// detects if a Laserbeam hits the PlayerSpaceship hitbox
 			Point2D p2 = player.getPlayerSpaceship().getLocation();
 			Dimension2D d2 = player.getPlayerSpaceship().getSize();
 
@@ -202,7 +203,7 @@ public class GameBoard {
 
 			}
 		}
-		// if laserbeam are outside the playing field they get removed
+		// if laserbeams are outside the playing field they get removed
 		for (LaserBeam laserBeam : this.activeLaserbeams) {
 			if (laserBeam.getLocation().getX() < 0.0 || laserBeam.getLocation().getX() > this.getSize().getHeight()
 					|| laserBeam.getLocation().getY() < 0.0
