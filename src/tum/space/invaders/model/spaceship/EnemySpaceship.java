@@ -10,9 +10,10 @@ public class EnemySpaceship extends Spaceship {
 	private static final String FILE = "enemy.gif";
 	private final GameBoard gameBoard;
 
-	public EnemySpaceship(GameBoard gameBoard) {
+	public EnemySpaceship(GameBoard gameBoard, double x, double y) {
 		super(FILE, gameBoard.getSize());
 		this.gameBoard = gameBoard;
+		this.setLocation(new Point2D(x, y));
 	}
 
 	@Override
@@ -29,7 +30,7 @@ public class EnemySpaceship extends Spaceship {
 
 	@Override
 	public void move() {
-		// TODO??
+		// TODO (not needed (yet)) if EnemySpaceships need to move (not needed (yet))
 	}
 
 }

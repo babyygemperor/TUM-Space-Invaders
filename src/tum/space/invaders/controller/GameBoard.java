@@ -1,6 +1,7 @@
 package tum.space.invaders.controller;
 
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
 import tum.space.invaders.GameOutcome;
 import tum.space.invaders.controller.music.Music;
 import tum.space.invaders.model.spaceship.EnemySpaceship;
@@ -36,6 +37,9 @@ public class GameBoard {
 		this.enemySpaceships = new ArrayList<>();
 		this.explodedSpaceships = new ArrayList<>();
 
+		this.activeLaserbeams = new ArrayList<>();
+		this.explodedLaserbeams = new ArrayList<>();
+
 		PlayerSpaceship playerSpaceship = new PlayerSpaceship(this, this.size);
 		this.player = new Player(playerSpaceship);
 		this.player.setup();
@@ -44,8 +48,14 @@ public class GameBoard {
 	}
 
 	private void createCars() {
-		EnemySpaceship enemy = new EnemySpaceship(this);
-		enemySpaceships.add(enemy);
+		for (double x = 0; x < 12.0; x++) {
+			for (double y = 0; y < 5.0; y++) {
+				EnemySpaceship enemy = new EnemySpaceship(this,
+						(0.2 * this.getSize().getWidth()) + (0.05 * this.getSize().getWidth() * x),
+						(0.4 * this.getSize().getHeight()) - (0.07 * this.getSize().getHeight() * y));
+				enemySpaceships.add(enemy);
+			}
+		}
 	}
 
 	public boolean startGame() {
@@ -96,6 +106,14 @@ public class GameBoard {
 		this.enemySpaceships = enemySpaceships;
 	}
 
+	public List<LaserBeam> getActiveLaserbeams() {
+		return activeLaserbeams;
+	}
+
+	public List<LaserBeam> getExplodedLaserbeams() {
+		return explodedLaserbeams;
+	}
+
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
@@ -122,9 +140,11 @@ public class GameBoard {
 
 	private void moveSpaceships() {
 		// update positions of all spaceships
+
 		for (Spaceship spaceship : this.enemySpaceships) {
 			spaceship.move();
 		}
+
 		player.move();
 
 		for (LaserBeam laserBeam : this.activeLaserbeams) {
@@ -142,9 +162,21 @@ public class GameBoard {
 
 		for (LaserBeam laserBeam : this.activeLaserbeams) {
 
+			Point2D p1 = laserBeam.getLocation();
+			Dimension2D d1 = laserBeam.getSize();
+
+			// TODO do not use equals (hitbox)
 			for (EnemySpaceship enemySpaceship : this.enemySpaceships) {
-				if (laserBeam.getLocation().equals(enemySpaceship.getLocation())) {
-					laserBeam.hit();
+
+				Point2D p2 = enemySpaceship.getLocation();
+				Dimension2D d2 = enemySpaceship.getSize();
+
+				boolean above = p1.getY() + d1.getHeight() < p2.getY();
+				boolean below = p1.getY() > p2.getY() + d2.getHeight();
+				boolean right = p1.getX() + d1.getWidth() < p2.getX();
+				boolean left = p1.getX() > p2.getX() + d2.getWidth();
+
+				if (!above && !below && !right && !left) {
 					enemySpaceship.disappear();
 					crashSoundEffectPlayer.playMusic();
 					enemySpaceships.remove(enemySpaceship);
@@ -152,17 +184,25 @@ public class GameBoard {
 					activeLaserbeams.remove(laserBeam);
 					explodedLaserbeams.add(laserBeam);
 				}
-				if (player.getPlayerSpaceship().getLocation().equals(laserBeam.getLocation())) {
-					laserBeam.hit();
-					player.getPlayerSpaceship().disappear();
-					crashSoundEffectPlayer.playMusic();
-					activeLaserbeams.remove(laserBeam);
-					explodedLaserbeams.add(laserBeam);
-				}
+			}
+
+			Point2D p2 = player.getPlayerSpaceship().getLocation();
+			Dimension2D d2 = player.getPlayerSpaceship().getSize();
+
+			boolean above = p1.getY() + d1.getHeight() < p2.getY();
+			boolean below = p1.getY() > p2.getY() + d2.getHeight();
+			boolean right = p1.getX() + d1.getWidth() < p2.getX();
+			boolean left = p1.getX() > p2.getX() + d2.getWidth();
+
+			if (!above && !below && !right && !left) {
+				player.getPlayerSpaceship().disappear();
+				crashSoundEffectPlayer.playMusic();
+				activeLaserbeams.remove(laserBeam);
+				explodedLaserbeams.add(laserBeam);
 
 			}
 		}
-		// if laserbeasm are outside the playing field they get removed
+		// if laserbeam are outside the playing field they get removed
 		for (LaserBeam laserBeam : this.activeLaserbeams) {
 			if (laserBeam.getLocation().getX() < 0.0 || laserBeam.getLocation().getX() > this.getSize().getHeight()
 					|| laserBeam.getLocation().getY() < 0.0
@@ -170,8 +210,8 @@ public class GameBoard {
 				activeLaserbeams.remove(laserBeam);
 				explodedLaserbeams.add(laserBeam);
 			}
-		}
 
+		}
 	}
 
 	public GameOutcome getGameOutcome() {

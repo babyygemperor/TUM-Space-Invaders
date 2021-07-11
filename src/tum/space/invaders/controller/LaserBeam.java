@@ -1,5 +1,6 @@
 package tum.space.invaders.controller;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import tum.space.invaders.controller.GameBoard;
 
@@ -11,6 +12,8 @@ public class LaserBeam {
 	private Point2D location;
 	private final GameBoard gameBoard;
 
+	private Dimension2D size = new Dimension2D(10, 15);
+
 	public LaserBeam(boolean direction, Point2D location, GameBoard gameBoard) {
 		this.direction = direction;
 		this.location = location;
@@ -18,7 +21,7 @@ public class LaserBeam {
 	}
 
 	public boolean hit() {
-		// TODO implement the logic for getting hti
+		// TODO (not needed (yet)) implement logic
 		return false;
 	}
 
@@ -29,10 +32,10 @@ public class LaserBeam {
 
 		if (getDirection()) { // If direction is UP
 			newPosition = new Point2D(currentPosition.getX(),
-					currentPosition.getY() + gameBoard.getSize().getHeight() * 0.005);
+					currentPosition.getY() + gameBoard.getSize().getHeight() * 0.03);
 		} else {
-			newPosition = new Point2D(currentPosition.getX() - gameBoard.getSize().getWidth() * 0.005,
-					currentPosition.getY() - gameBoard.getSize().getHeight() * 0.005);
+			newPosition = new Point2D(currentPosition.getX(),
+					currentPosition.getY() - gameBoard.getSize().getHeight() * 0.03);
 		}
 
 		setLocation(newPosition);
@@ -60,6 +63,10 @@ public class LaserBeam {
 
 	public void setLocation(Point2D location) {
 		this.location = location;
+	}
+
+	public Dimension2D getSize() {
+		return size;
 	}
 
 }

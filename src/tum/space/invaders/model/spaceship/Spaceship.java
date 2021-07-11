@@ -28,7 +28,7 @@ public abstract class Spaceship extends Subject implements LaserBeamShooting {
 
 	public abstract LaserBeam shoot();
 
-	public abstract void move(); // TODO implement the movement, implemented in subclasses
+	public abstract void move();
 
 	public boolean gotHit() {
 		return gotHit;

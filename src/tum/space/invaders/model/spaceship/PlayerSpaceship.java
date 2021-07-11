@@ -28,7 +28,8 @@ public class PlayerSpaceship extends Spaceship {
 
 	@Override
 	public LaserBeam shoot() {
-		LaserBeam laserbeam = new LaserBeam(true, getLocation(), gameBoard);
+		LaserBeam laserbeam = new LaserBeam(true, getLocation().add(0, 30), gameBoard);
+		gameBoard.getActiveLaserbeams().add(laserbeam);
 		shotfx.playMusic();
 		gameBoard.setScore(gameBoard.getScore() + 1);
 		return laserbeam;

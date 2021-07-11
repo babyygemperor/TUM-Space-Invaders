@@ -12,6 +12,7 @@ import javafx.stage.Screen;
 import tum.space.invaders.GameOutcome;
 import tum.space.invaders.controller.GameBoard;
 import tum.space.invaders.controller.KeyBoardController;
+import tum.space.invaders.controller.LaserBeam;
 import tum.space.invaders.controller.Observer;
 import tum.space.invaders.controller.music.BackgroundMusic;
 import tum.space.invaders.model.spaceship.Spaceship;
@@ -90,7 +91,7 @@ public class GameBoardUI extends Canvas implements Observer {
 	}
 
 	public void moveSpaceship() {
-		// TODO move the spaceships (I know, very informative)
+		// TODO (not needed (yet))
 	}
 
 	public void setGameBoard(GameBoard gameBoard) {
@@ -146,6 +147,10 @@ public class GameBoardUI extends Canvas implements Observer {
 			paintSpaceship(enemies);
 		}
 
+		for (LaserBeam laserBeam : this.gameBoard.getActiveLaserbeams()) {
+			paintLaserBeam(laserBeam);
+		}
+
 		paintSpaceship(this.gameBoard.getPlayerSpaceship());
 
 	}
@@ -155,6 +160,13 @@ public class GameBoardUI extends Canvas implements Observer {
 
 		getGraphicsContext2D().drawImage(this.imageCache.get(spaceships.getIconFilePath()), position.getX(),
 				position.getY(), spaceships.getSize().getWidth(), spaceships.getSize().getHeight());
+	}
+
+	private void paintLaserBeam(LaserBeam laserBeam) {
+		Point2D position = laserBeam.getLocation();
+
+		getGraphicsContext2D().drawImage(this.imageCache.get(laserBeam.getFilePath()), position.getX(), position.getY(),
+				laserBeam.getSize().getWidth(), laserBeam.getSize().getHeight());
 	}
 
 	private void showAsyncAlert(String s) {
