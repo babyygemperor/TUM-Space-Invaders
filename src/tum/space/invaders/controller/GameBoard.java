@@ -12,118 +12,169 @@ import java.util.List;
 
 public class GameBoard {
 
-    private Dimension2D size;
-    private int score;
+	private Dimension2D size;
+	private int score;
 
-    private Music backgroundMusicPlayer;
-    private Music crashSoundEffectPlayer;
+	private Music backgroundMusicPlayer;
+	private Music crashSoundEffectPlayer;
 
-    private Player player;
-    private List<EnemySpaceship> enemySpaceships;
-    private List<Spaceship> explodedSpaceships;
+	private Player player;
+	private List<EnemySpaceship> enemySpaceships;
+	private List<Spaceship> explodedSpaceships;
 
-    private GameOutcome gameOutcome = GameOutcome.RUNNING;
+	private List<LaserBeam> activeLaserbeams;
+	private List<LaserBeam> explodedLaserbeams;
 
-    private boolean running;
+	private GameOutcome gameOutcome = GameOutcome.RUNNING;
 
-    public GameBoard(Dimension2D size) {
-        this.size = size;
-        this.score = 0;
+	private boolean running;
 
-        this.enemySpaceships = new ArrayList<>();
-        this.explodedSpaceships = new ArrayList<>();
+	public GameBoard(Dimension2D size) {
+		this.size = size;
+		this.score = 0;
 
+		this.enemySpaceships = new ArrayList<>();
+		this.explodedSpaceships = new ArrayList<>();
 
-        PlayerSpaceship playerSpaceship = new PlayerSpaceship(this, this.size);
-        this.player = new Player(playerSpaceship);
-        this.player.setup();
+		PlayerSpaceship playerSpaceship = new PlayerSpaceship(this, this.size);
+		this.player = new Player(playerSpaceship);
+		this.player.setup();
 
-        createCars();
-    }
+		createCars();
+	}
 
-    private void createCars() {
-        EnemySpaceship enemy = new EnemySpaceship(this.size);
-        enemySpaceships.add(enemy);
-    }
+	private void createCars() {
+		EnemySpaceship enemy = new EnemySpaceship(this);
+		enemySpaceships.add(enemy);
+	}
 
-    public boolean startGame() {
-        playMusic();
-        this.running = true;
-        return true;
-    }
+	public boolean startGame() {
+		playMusic();
+		this.running = true;
+		return true;
+	}
 
-    private void playMusic() {
-        this.backgroundMusicPlayer.playMusic();
-    }
+	private void playMusic() {
+		this.backgroundMusicPlayer.playMusic();
+	}
 
-    public boolean stopGame() {
-        stopMusic();
-        this.running = false;
-        return true;
-    }
+	public boolean stopGame() {
+		stopMusic();
+		this.running = false;
+		return true;
+	}
 
-    private void stopMusic() {
-        this.backgroundMusicPlayer.stopMusic();
-    }
+	private void stopMusic() {
+		this.backgroundMusicPlayer.stopMusic();
+	}
 
-    public Dimension2D getSize() {
-        return size;
-    }
+	public Dimension2D getSize() {
+		return size;
+	}
 
-    public int getScore() {
-        return score;
-    }
+	public int getScore() {
+		return score;
+	}
 
-    public List<EnemySpaceship> getEnemySpaceships() {
-        return enemySpaceships;
-    }
+	public List<EnemySpaceship> getEnemySpaceships() {
+		return enemySpaceships;
+	}
 
-    public PlayerSpaceship getPlayerSpaceship() {
-        return player.getPlayerSpaceship();
-    }
+	public PlayerSpaceship getPlayerSpaceship() {
+		return player.getPlayerSpaceship();
+	}
 
-    public Music getBackgroundMusicPlayer() {
-        return backgroundMusicPlayer;
-    }
+	public Music getBackgroundMusicPlayer() {
+		return backgroundMusicPlayer;
+	}
 
-    public void setBackgroundMusicPlayer(Music backgroundMusicPlayer) {
-        this.backgroundMusicPlayer = backgroundMusicPlayer;
-    }
+	public void setBackgroundMusicPlayer(Music backgroundMusicPlayer) {
+		this.backgroundMusicPlayer = backgroundMusicPlayer;
+	}
 
-    public void setEnemySpaceships(List<EnemySpaceship> enemySpaceships) {
-        this.enemySpaceships = enemySpaceships;
-    }
+	public void setEnemySpaceships(List<EnemySpaceship> enemySpaceships) {
+		this.enemySpaceships = enemySpaceships;
+	}
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-    public Player getPlayer() {
-        return player;
-    }
+	public Player getPlayer() {
+		return player;
+	}
 
-    public void setSize(Dimension2D size) {
-        this.size = size;
-    }
+	public void setSize(Dimension2D size) {
+		this.size = size;
+	}
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+	public void setScore(int score) {
+		this.score = score;
+	}
 
-    public boolean isRunning() {
-        return this.running;
-    }
+	public boolean isRunning() {
+		return this.running;
+	}
 
-    public void update() {
-        moveSpaceships();
-    }
+	public void update() {
+		moveSpaceships();
+	}
 
-    private void moveSpaceships() {
-        //TODO the master logic goes here
-        player.move();
-    }
+	private void moveSpaceships() {
+		// update positions of all spaceships
+		for (Spaceship spaceship : this.enemySpaceships) {
+			spaceship.move();
+		}
+		player.move();
 
-    public GameOutcome getGameOutcome() {
-        return gameOutcome;
-    }
+		for (LaserBeam laserBeam : this.activeLaserbeams) {
+			laserBeam.move();
+		}
+
+		// checks if game was lost or won before
+		if (player.getPlayerSpaceship().gotHit())
+			gameOutcome = GameOutcome.LOST;
+
+		if (enemySpaceships.isEmpty())
+			gameOutcome = GameOutcome.WON;
+
+		// iterates thru activeLaserbeams and looks if they hit anything
+
+		for (LaserBeam laserBeam : this.activeLaserbeams) {
+
+			for (EnemySpaceship enemySpaceship : this.enemySpaceships) {
+				if (laserBeam.getLocation().equals(enemySpaceship.getLocation())) {
+					laserBeam.hit();
+					enemySpaceship.disappear();
+					crashSoundEffectPlayer.playMusic();
+					enemySpaceships.remove(enemySpaceship);
+					explodedSpaceships.add(enemySpaceship);
+					activeLaserbeams.remove(laserBeam);
+					explodedLaserbeams.add(laserBeam);
+				}
+				if (player.getPlayerSpaceship().getLocation().equals(laserBeam.getLocation())) {
+					laserBeam.hit();
+					player.getPlayerSpaceship().disappear();
+					crashSoundEffectPlayer.playMusic();
+					activeLaserbeams.remove(laserBeam);
+					explodedLaserbeams.add(laserBeam);
+				}
+
+			}
+		}
+		// if laserbeasm are outside the playing field they get removed
+		for (LaserBeam laserBeam : this.activeLaserbeams) {
+			if (laserBeam.getLocation().getX() < 0.0 || laserBeam.getLocation().getX() > this.getSize().getHeight()
+					|| laserBeam.getLocation().getY() < 0.0
+					|| laserBeam.getLocation().getY() > this.getSize().getWidth()) {
+				activeLaserbeams.remove(laserBeam);
+				explodedLaserbeams.add(laserBeam);
+			}
+		}
+
+	}
+
+	public GameOutcome getGameOutcome() {
+		return gameOutcome;
+	}
 }

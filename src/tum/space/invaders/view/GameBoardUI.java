@@ -23,168 +23,166 @@ import java.util.TimerTask;
 
 public class GameBoardUI extends Canvas implements Observer {
 
-    private static final Color BACKGROUND_COLOR = Color.BLACK;
+	private static final Color BACKGROUND_COLOR = Color.BLACK;
 
-    private static final int UPDATE_PERIOD = 33;
-    private static final int DEFAULT_WIDTH = 1280;
-    private static final int DEFAULT_HEIGHT = 720;
-    private static final Dimension2D DEFAULT_SIZE = new Dimension2D(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	private static final int UPDATE_PERIOD = 33;
+	private static final int DEFAULT_WIDTH = 1280;
+	private static final int DEFAULT_HEIGHT = 720;
+	private static final Dimension2D DEFAULT_SIZE = new Dimension2D(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
-    public static Dimension2D getPreferredSize() {
-        return DEFAULT_SIZE;
-    }
+	public static Dimension2D getPreferredSize() {
+		return DEFAULT_SIZE;
+	}
 
-    private GameBoard gameBoard;
-    private final GameBoardToolBar gameBoardToolBar;
+	private GameBoard gameBoard;
+	private final GameBoardToolBar gameBoardToolBar;
 
-    private KeyBoardController keyBoardController;
+	private KeyBoardController keyBoardController;
 
-    private HashMap<String, Image> imageCache;
+	private HashMap<String, Image> imageCache;
 
-    private Timer gameTimer;
+	private Timer gameTimer;
 
+	public GameBoardUI(GameBoardToolBar gameBoardToolBar) {
+		this.gameBoardToolBar = gameBoardToolBar;
+		setup();
+	}
 
-    public GameBoardUI(GameBoardToolBar gameBoardToolBar) {
-        this.gameBoardToolBar = gameBoardToolBar;
-        setup();
-    }
+	public void setup() {
+		setupGameBoard();
+		setupImageCache();
+		this.gameBoardToolBar.updateToolBarStatus(false);
+		paint();
+	}
 
-    public void setup() {
-        setupGameBoard();
-        setupImageCache();
-        this.gameBoardToolBar.updateToolBarStatus(false);
-        paint();
-    }
+	private void setupImageCache() {
+		this.imageCache = new HashMap<>();
+		for (Spaceship spaceship : this.gameBoard.getEnemySpaceships()) {
+			this.imageCache.computeIfAbsent(spaceship.getIconFilePath(), this::getImage);
+		}
+		String playerImageLocation = this.gameBoard.getPlayerSpaceship().getIconFilePath();
+		this.imageCache.put(playerImageLocation, getImage(playerImageLocation));
+	}
 
+	private Image getImage(String playerImageLocation) {
+		URL carImageURL = getClass().getClassLoader().getResource(playerImageLocation);
 
-    private void setupImageCache() {
-        this.imageCache = new HashMap<>();
-        for (Spaceship spaceship: this.gameBoard.getEnemySpaceships()) {
-            this.imageCache.computeIfAbsent(spaceship.getIconFilePath(), this::getImage);
-        }
-        String playerImageLocation = this.gameBoard.getPlayerSpaceship().getIconFilePath();
-        this.imageCache.put(playerImageLocation, getImage(playerImageLocation));
-    }
+		if (carImageURL == null) {
+			throw new IllegalArgumentException("Are you sure that your resources file has everything?");
+		}
 
-    private Image getImage(String playerImageLocation) {
-        URL carImageURL = getClass().getClassLoader().getResource(playerImageLocation);
+		return new Image(carImageURL.toExternalForm());
+	}
 
-        if (carImageURL == null) {
-            throw new IllegalArgumentException("Are you sure that your resources file has everything?");
-        }
+	private void setupGameBoard() {
+		Screen screen = Screen.getPrimary();
+		Rectangle2D bounds = screen.getBounds();
+		Dimension2D size = new Dimension2D(bounds.getWidth(), bounds.getHeight());
+		// Dimension2D size =
+		this.gameBoard = new GameBoard(size);
+		this.gameBoard.setBackgroundMusicPlayer(new BackgroundMusic());
+		widthProperty().setValue(size.getWidth());
+		heightProperty().setValue(size.getHeight());
+		this.keyBoardController = new KeyBoardController(this, this.gameBoard.getPlayerSpaceship());
 
-        return new Image(carImageURL.toExternalForm());
-    }
+		this.gameBoard.getPlayerSpaceship().addObserver(this);
+		this.gameBoard.getEnemySpaceships().forEach(spaceship -> spaceship.addObserver(this));
+	}
 
-    private void setupGameBoard() {
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getBounds();
-        Dimension2D size = new Dimension2D(bounds.getWidth(), bounds.getHeight());
-        //Dimension2D size =
-        this.gameBoard = new GameBoard(size);
-        this.gameBoard.setBackgroundMusicPlayer(new BackgroundMusic());
-        widthProperty().setValue(size.getWidth());
-        heightProperty().setValue(size.getHeight());
-        this.keyBoardController = new KeyBoardController(this, this.gameBoard.getPlayerSpaceship());
+	public void moveSpaceship() {
+		// TODO move the spaceships (I know, very informative)
+	}
 
-        this.gameBoard.getPlayerSpaceship().addObserver(this);
-        this.gameBoard.getEnemySpaceships().forEach(spaceship -> spaceship.addObserver(this));
-    }
+	public void setGameBoard(GameBoard gameBoard) {
+		this.gameBoard = gameBoard;
+	}
 
-    public void moveSpaceship() {
-        //TODO move the spaceships (I know, very informative)
-    }
+	public GameBoard getGameBoard() {
+		return gameBoard;
+	}
 
-    public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-    }
+	public KeyBoardController getKeyBoardController() {
+		return keyBoardController;
+	}
 
-    public GameBoard getGameBoard() {
-        return gameBoard;
-    }
+	public void stopGame() {
+		if (this.gameBoard.isRunning()) {
+			this.gameBoard.stopGame();
+		}
+	}
 
-    public KeyBoardController getKeyBoardController() {
-        return keyBoardController;
-    }
+	public void startGame() {
+		if (!this.gameBoard.isRunning()) {
+			this.gameBoard.startGame();
+			this.gameBoardToolBar.updateToolBarStatus(true);
+			startTimer();
+			paint();
+		}
+	}
 
-    public void stopGame() {
-        if (this.gameBoard.isRunning()) {
-            this.gameBoard.stopGame();
-        }
-    }
+	private void updateGame() {
+		if (gameBoard.isRunning()) {
+			// updates car positions and re-renders graphics
+			this.gameBoard.update();
 
-    public void startGame() {
-        if (!this.gameBoard.isRunning()) {
-            this.gameBoard.startGame();
-            this.gameBoardToolBar.updateToolBarStatus(true);
-            startTimer();
-            paint();
-        }
-    }
+			this.gameBoardToolBar.refreshText(this);
+			// when this.gameBoard.getOutcome() is OPEN, do nothing
+			if (this.gameBoard.getGameOutcome() == GameOutcome.LOST) {
+				showAsyncAlert("Oh.. you lost.");
+				this.stopGame();
+			} else if (this.gameBoard.getGameOutcome() == GameOutcome.WON) {
+				showAsyncAlert("Congratulations! You won!!");
+				this.stopGame();
+			}
+			paint();
+		}
+	}
 
-    private void updateGame() {
-        if (gameBoard.isRunning()) {
-            // updates car positions and re-renders graphics
-            this.gameBoard.update();
+	private void paint() {
+		getGraphicsContext2D().setFill(BACKGROUND_COLOR);
+		getGraphicsContext2D().fillRect(0, 0, getWidth(), getHeight());
 
-            this.gameBoardToolBar.refreshText(this);
-            // when this.gameBoard.getOutcome() is OPEN, do nothing
-            if (this.gameBoard.getGameOutcome() == GameOutcome.LOST) {
-                showAsyncAlert("Oh.. you lost.");
-                this.stopGame();
-            } else if (this.gameBoard.getGameOutcome() == GameOutcome.WON) {
-                showAsyncAlert("Congratulations! You won!!");
-                this.stopGame();
-            }
-            paint();
-        }
-    }
+		for (Spaceship enemies : this.gameBoard.getEnemySpaceships()) {
+			paintSpaceship(enemies);
+		}
 
-    private void paint() {
-        getGraphicsContext2D().setFill(BACKGROUND_COLOR);
-        getGraphicsContext2D().fillRect(0, 0, getWidth(), getHeight());
+		paintSpaceship(this.gameBoard.getPlayerSpaceship());
 
-        for (Spaceship enemies: this.gameBoard.getEnemySpaceships()) {
-            paintSpaceship(enemies);
-        }
+	}
 
-        paintSpaceship(this.gameBoard.getPlayerSpaceship());
+	private void paintSpaceship(Spaceship spaceships) {
+		Point2D position = spaceships.getLocation();
 
-    }
+		getGraphicsContext2D().drawImage(this.imageCache.get(spaceships.getIconFilePath()), position.getX(),
+				position.getY(), spaceships.getSize().getWidth(), spaceships.getSize().getHeight());
+	}
 
-    private void paintSpaceship(Spaceship spaceships) {
-        Point2D position = spaceships.getLocation();
+	private void showAsyncAlert(String s) {
+		Platform.runLater(() -> {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText(s);
+			alert.showAndWait();
+			this.setup();
+		});
+	}
 
-        getGraphicsContext2D().drawImage(this.imageCache.get(spaceships.getIconFilePath()),
-                position.getX(), position.getY(), spaceships.getSize().getWidth(), spaceships.getSize().getHeight());
-    }
+	private void startTimer() {
+		TimerTask timerTask = new TimerTask() {
+			@Override
+			public void run() {
+				updateGame();
+			}
+		};
+		if (this.gameTimer != null) {
+			this.gameTimer.cancel();
+		}
+		this.gameTimer = new Timer();
+		this.gameTimer.scheduleAtFixedRate(timerTask, 33, 33);
+	}
 
-    private void showAsyncAlert(String s) {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(s);
-            alert.showAndWait();
-            this.setup();
-        });
-    }
-
-    private void startTimer() {
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                updateGame();
-            }
-        };
-        if (this.gameTimer != null) {
-            this.gameTimer.cancel();
-        }
-        this.gameTimer = new Timer();
-        this.gameTimer.scheduleAtFixedRate(timerTask, 33, 33);
-    }
-
-    @Override
-    public void update() {
-        updateGame();
-    }
+	@Override
+	public void update() {
+		updateGame();
+	}
 
 }
