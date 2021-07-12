@@ -3,6 +3,7 @@ package tum.space.invaders.controller;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import tum.space.invaders.GameOutcome;
+import tum.space.invaders.controller.music.CrashSound;
 import tum.space.invaders.controller.music.Music;
 import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
@@ -17,7 +18,7 @@ public class GameBoard {
 	private int score;
 
 	private Music backgroundMusicPlayer;
-	private Music crashSoundEffectPlayer;
+	private Music crashSoundEffectPlayer = new CrashSound();
 
 	private Player player;
 	private List<EnemySpaceship> enemySpaceships;
@@ -203,16 +204,8 @@ public class GameBoard {
 
 			}
 		}
-		// if laserbeams are outside the playing field they get removed
-		for (LaserBeam laserBeam : this.activeLaserbeams) {
-			if (laserBeam.getLocation().getX() < 0.0 || laserBeam.getLocation().getX() > this.getSize().getHeight()
-					|| laserBeam.getLocation().getY() < 0.0
-					|| laserBeam.getLocation().getY() > this.getSize().getWidth()) {
-				activeLaserbeams.remove(laserBeam);
-				explodedLaserbeams.add(laserBeam);
-			}
-
-		}
+		System.out.println("Size Laserbeams: " + activeLaserbeams.size());
+		System.out.println("Size Spaceships: " + enemySpaceships.size());
 	}
 
 	public GameOutcome getGameOutcome() {
