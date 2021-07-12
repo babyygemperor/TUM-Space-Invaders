@@ -180,11 +180,10 @@ public class GameBoard {
 
 				if (!above && !below && !right && !left) {
 					enemySpaceship.disappear();
+					score++;
 					crashSoundEffectPlayer.playMusic();
 					enemySpaceships.remove(enemySpaceship);
-					explodedSpaceships.add(enemySpaceship);
 					activeLaserbeams.remove(laserBeam);
-					explodedLaserbeams.add(laserBeam);
 				}
 			}
 			// detects if a Laserbeam hits the PlayerSpaceship hitbox
@@ -200,12 +199,9 @@ public class GameBoard {
 				player.getPlayerSpaceship().disappear();
 				crashSoundEffectPlayer.playMusic();
 				activeLaserbeams.remove(laserBeam);
-				explodedLaserbeams.add(laserBeam);
 
 			}
 		}
-		System.out.println("Size Laserbeams: " + activeLaserbeams.size());
-		System.out.println("Size Spaceships: " + enemySpaceships.size());
 	}
 
 	public GameOutcome getGameOutcome() {

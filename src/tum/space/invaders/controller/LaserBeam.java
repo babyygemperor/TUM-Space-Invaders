@@ -7,12 +7,12 @@ import tum.space.invaders.controller.GameBoard;
 public class LaserBeam {
 
 	private final static int SPEED = 10;
-	private String filePath = "LaserBeam.jpg";
+	private static final String FILE = "PlayerSpaceship.png";
 	private boolean direction; // TRUE -> direction is UP; FALSE -> direction is DOWN
 	private Point2D location;
 	private final GameBoard gameBoard;
 
-	private Dimension2D size = new Dimension2D(10, 15);
+	private Dimension2D size = new Dimension2D(20, 20);
 
 	public LaserBeam(boolean direction, Point2D location, GameBoard gameBoard) {
 		this.direction = direction;
@@ -32,10 +32,10 @@ public class LaserBeam {
 
 		if (getDirection()) { // If direction is UP
 			newPosition = new Point2D(currentPosition.getX(),
-					currentPosition.getY() + gameBoard.getSize().getHeight() * 0.03);
+					currentPosition.getY() - gameBoard.getSize().getHeight() * 0.03);
 		} else {
 			newPosition = new Point2D(currentPosition.getX(),
-					currentPosition.getY() - gameBoard.getSize().getHeight() * 0.03);
+					currentPosition.getY() + gameBoard.getSize().getHeight() * 0.03);
 		}
 
 		setLocation(newPosition);
@@ -45,12 +45,8 @@ public class LaserBeam {
 		this.direction = direction;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
 	public String getFilePath() {
-		return filePath;
+		return FILE;
 	}
 
 	public boolean getDirection() {
