@@ -1,7 +1,5 @@
 package tum.space.invaders;
 
-import java.util.Arrays;
-
 public final class TUMSpaceInvaders {
 
     /**
