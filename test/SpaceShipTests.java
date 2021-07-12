@@ -57,7 +57,7 @@ public class SpaceShipTests {
 
     @Test
     public void testEnemySpaceship() {
-        EnemySpaceship enemySpaceships = new EnemySpaceship(GameBoardUI.getPreferredSize());
+        EnemySpaceship enemySpaceships = new EnemySpaceship(new GameBoard(GameBoardUI.getPreferredSize()), 0, 0);
 
         assertEquals(new Dimension2D(50, 25), enemySpaceships.getSize());
         assertEquals(new Dimension2D(1280, 720), enemySpaceships.getGameboardSize());
@@ -65,7 +65,7 @@ public class SpaceShipTests {
 
     @Test
     public void testEnemySpaceshipMetadata() {
-        EnemySpaceship enemySpaceships = new EnemySpaceship(GameBoardUI.getPreferredSize());
+        EnemySpaceship enemySpaceships = new EnemySpaceship(new GameBoard(GameBoardUI.getPreferredSize()), 0, 0);
 
         assertEquals("enemy.gif", enemySpaceships.getIconFilePath());
         assertEquals(0, enemySpaceships.getSPEED());

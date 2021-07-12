@@ -39,7 +39,7 @@ public class ShootingTests {
         int expectedScore = gameBoard.getScore() + 1;
         PlayerSpaceship playerSpaceship = new PlayerSpaceship(gameBoard, GameBoardUI.getPreferredSize());
 
-        LaserBeam defaultLaserBeam = new LaserBeam(true, playerSpaceship.getLocation());
+        LaserBeam defaultLaserBeam = new LaserBeam(true, playerSpaceship.getLocation(), gameBoard);
 
     	expect(laserBeamMock.shoot()).andReturn(defaultLaserBeam);
     	replay(laserBeamMock);
