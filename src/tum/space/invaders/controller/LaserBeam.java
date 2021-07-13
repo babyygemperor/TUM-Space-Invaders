@@ -36,7 +36,7 @@ public class LaserBeam {
 					currentPosition.getY() - gameBoard.getSize().getHeight() * 0.03);
 		} else {
 			newPosition = new Point2D(currentPosition.getX(),
-					currentPosition.getY() + gameBoard.getSize().getHeight() * 0.03);
+					currentPosition.getY() + gameBoard.getSize().getHeight() * 0.01);
 		}
 
 		setLocation(newPosition);
