@@ -183,14 +183,10 @@ public class GameBoard {
 
 					if (!above && !below && !right && !left) {
 						laserBeam.setHit();
-						//laserBeam.disappear();
 						enemySpaceship.disappear();
 						spaceshipsToRemove.add(enemySpaceship);
 						score++;
 						crashSoundEffectPlayer.playMusic();
-						//enemySpaceships.remove(enemySpaceship);
-						//spaceshipToRemove = enemySpaceship;
-						//activeLaserbeams.remove(laserBeam);
 						beamsToRemove.add(laserBeam);
 					}
 				}
@@ -208,8 +204,6 @@ public class GameBoard {
 			if (!above && !below && !right && !left) {
 				player.getPlayerSpaceship().disappear();
 				crashSoundEffectPlayer.playMusic();
-				//laserBeam.disappear();
-				//activeLaserbeams.remove(laserBeam);
 				beamsToRemove.add(laserBeam);
 			}
 		}
