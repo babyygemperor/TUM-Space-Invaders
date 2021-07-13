@@ -9,6 +9,7 @@ import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
 import tum.space.invaders.model.spaceship.Spaceship;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,30 +163,39 @@ public class GameBoard {
 
 		// iterates thru activeLaserbeams and looks if they hit anything
 
-		for (LaserBeam laserBeam : this.activeLaserbeams) {
+		List<LaserBeam> beamsToRemove = new ArrayList<>();
+		List<EnemySpaceship> spaceshipsToRemove = new ArrayList<>();
 
+		for (LaserBeam laserBeam : this.activeLaserbeams) {
 			Point2D p1 = laserBeam.getLocation();
 			Dimension2D d1 = laserBeam.getSize();
 
 			// detects if a Laserbeam hits an enemyspaceships hitbox
 			for (EnemySpaceship enemySpaceship : this.enemySpaceships) {
+				if (!enemySpaceship.gotHit() && !laserBeam.hit()) {
+					Point2D p2 = enemySpaceship.getLocation();
+					Dimension2D d2 = enemySpaceship.getSize();
 
-				Point2D p2 = enemySpaceship.getLocation();
-				Dimension2D d2 = enemySpaceship.getSize();
+					boolean above = p1.getY() + d1.getHeight() < p2.getY();
+					boolean below = p1.getY() > p2.getY() + d2.getHeight();
+					boolean right = p1.getX() + d1.getWidth() < p2.getX();
+					boolean left = p1.getX() > p2.getX() + d2.getWidth();
 
-				boolean above = p1.getY() + d1.getHeight() < p2.getY();
-				boolean below = p1.getY() > p2.getY() + d2.getHeight();
-				boolean right = p1.getX() + d1.getWidth() < p2.getX();
-				boolean left = p1.getX() > p2.getX() + d2.getWidth();
-
-				if (!above && !below && !right && !left) {
-					enemySpaceship.disappear();
-					score++;
-					crashSoundEffectPlayer.playMusic();
-					enemySpaceships.remove(enemySpaceship);
-					activeLaserbeams.remove(laserBeam);
+					if (!above && !below && !right && !left) {
+						laserBeam.setHit();
+						//laserBeam.disappear();
+						enemySpaceship.disappear();
+						spaceshipsToRemove.add(enemySpaceship);
+						score++;
+						crashSoundEffectPlayer.playMusic();
+						//enemySpaceships.remove(enemySpaceship);
+						//spaceshipToRemove = enemySpaceship;
+						//activeLaserbeams.remove(laserBeam);
+						beamsToRemove.add(laserBeam);
+					}
 				}
 			}
+
 			// detects if a Laserbeam hits the PlayerSpaceship hitbox
 			Point2D p2 = player.getPlayerSpaceship().getLocation();
 			Dimension2D d2 = player.getPlayerSpaceship().getSize();
@@ -198,8 +208,21 @@ public class GameBoard {
 			if (!above && !below && !right && !left) {
 				player.getPlayerSpaceship().disappear();
 				crashSoundEffectPlayer.playMusic();
-				activeLaserbeams.remove(laserBeam);
+				//laserBeam.disappear();
+				//activeLaserbeams.remove(laserBeam);
+				beamsToRemove.add(laserBeam);
+			}
+		}
 
+		if (beamsToRemove.size() > 0) {
+			for (LaserBeam laserBeam: beamsToRemove) {
+				activeLaserbeams.remove(laserBeam);
+			}
+		}
+
+		if (spaceshipsToRemove.size() > 0) {
+			for (EnemySpaceship enemySpaceship: spaceshipsToRemove) {
+				this.enemySpaceships.remove(enemySpaceship);
 			}
 		}
 	}

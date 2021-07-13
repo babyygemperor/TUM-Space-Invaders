@@ -12,6 +12,8 @@ public class LaserBeam {
 	private Point2D location;
 	private final GameBoard gameBoard;
 
+	private boolean hit;
+
 	private Dimension2D size = new Dimension2D(20, 20);
 
 	public LaserBeam(boolean direction, Point2D location, GameBoard gameBoard) {
@@ -21,8 +23,7 @@ public class LaserBeam {
 	}
 
 	public boolean hit() {
-		// TODO (not needed (yet)) implement logic
-		return false;
+		return hit;
 	}
 
 	public void move() {
@@ -63,6 +64,14 @@ public class LaserBeam {
 
 	public Dimension2D getSize() {
 		return size;
+	}
+
+	public void disappear() {
+		this.size = new Dimension2D(0, 0);
+	}
+
+	public void setHit() {
+		this.hit = true;
 	}
 
 }
