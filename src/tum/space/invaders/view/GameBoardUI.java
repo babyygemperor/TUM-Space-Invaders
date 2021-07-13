@@ -61,8 +61,15 @@ public class GameBoardUI extends Canvas implements Observer {
 		for (Spaceship spaceship : this.gameBoard.getEnemySpaceships()) {
 			this.imageCache.computeIfAbsent(spaceship.getIconFilePath(), this::getImage);
 		}
+		for (LaserBeam laser : this.gameBoard.getActiveLaserbeams()) {
+			this.imageCache.computeIfAbsent(laser.getFilePath(), this::getImage);
+
+		}
+		LaserBeam temp = new LaserBeam(false, new Point2D(0.0, 0.0), this.gameBoard);
+		String laserImageLocation = temp.getFilePath();
 		String playerImageLocation = this.gameBoard.getPlayerSpaceship().getIconFilePath();
 		this.imageCache.put(playerImageLocation, getImage(playerImageLocation));
+		this.imageCache.put(laserImageLocation, getImage(laserImageLocation));
 	}
 
 	private Image getImage(String playerImageLocation) {

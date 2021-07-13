@@ -7,14 +7,14 @@ import tum.space.invaders.controller.GameBoard;
 public class LaserBeam {
 
 	private final static int SPEED = 10;
-	private static final String FILE = "PlayerSpaceship.png";
+	private static final String FILE = "laser.png";
 	private boolean direction; // TRUE -> direction is UP; FALSE -> direction is DOWN
 	private Point2D location;
 	private final GameBoard gameBoard;
 
 	private boolean hit;
 
-	private Dimension2D size = new Dimension2D(20, 20);
+	private Dimension2D size = new Dimension2D(5, 20);
 
 	public LaserBeam(boolean direction, Point2D location, GameBoard gameBoard) {
 		this.direction = direction;
