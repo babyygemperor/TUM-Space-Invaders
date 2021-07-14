@@ -44,6 +44,8 @@ public class GameBoardUI extends Canvas implements Observer {
 
 	private Timer gameTimer;
 
+	boolean multiPlayer = false;
+
 	public GameBoardUI(GameBoardToolBar gameBoardToolBar) {
 		this.gameBoardToolBar = gameBoardToolBar;
 		setup();
@@ -91,7 +93,7 @@ public class GameBoardUI extends Canvas implements Observer {
 		this.gameBoard.setBackgroundMusicPlayer(new BackgroundMusic());
 		widthProperty().setValue(size.getWidth());
 		heightProperty().setValue(size.getHeight());
-		this.keyBoardController = new KeyBoardController(this, this.gameBoard.getPlayerSpaceship());
+		this.keyBoardController = new KeyBoardController(this, this.gameBoard.getPlayerSpaceship(), this.gameBoard.getPlayer2());
 
 		this.gameBoard.getPlayerSpaceship().addObserver(this);
 		this.gameBoard.getEnemySpaceships().forEach(spaceship -> spaceship.addObserver(this));
@@ -115,13 +117,17 @@ public class GameBoardUI extends Canvas implements Observer {
 
 	public void stopGame() {
 		if (this.gameBoard.isRunning()) {
+			this.multiPlayer = false;
 			this.gameBoard.stopGame();
+			this.gameBoardToolBar.updateToolBarStatus(false);
+			this.gameTimer.cancel();
 		}
 	}
 
-	public void startGame() {
+	public void startGame(boolean multiPlayer) {
 		if (!this.gameBoard.isRunning()) {
-			this.gameBoard.startGame();
+			this.multiPlayer = multiPlayer;
+			this.gameBoard.startGame(multiPlayer);
 			this.gameBoardToolBar.updateToolBarStatus(true);
 			startTimer();
 			paint();
@@ -160,6 +166,10 @@ public class GameBoardUI extends Canvas implements Observer {
 
 		paintSpaceship(this.gameBoard.getPlayerSpaceship());
 
+		if (multiPlayer) {
+			paintSpaceship(this.gameBoard.getPlayer2());
+		}
+
 	}
 
 	private void paintSpaceship(Spaceship spaceships) {
@@ -196,7 +206,7 @@ public class GameBoardUI extends Canvas implements Observer {
 			this.gameTimer.cancel();
 		}
 		this.gameTimer = new Timer();
-		this.gameTimer.scheduleAtFixedRate(timerTask, 33, 33);
+		this.gameTimer.scheduleAtFixedRate(timerTask, UPDATE_PERIOD, UPDATE_PERIOD);
 	}
 
 	@Override
@@ -204,4 +214,7 @@ public class GameBoardUI extends Canvas implements Observer {
 		updateGame();
 	}
 
+	public boolean isMultiPlayer() {
+		return multiPlayer;
+	}
 }

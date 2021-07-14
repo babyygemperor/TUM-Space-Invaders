@@ -26,6 +26,18 @@ public class PlayerSpaceship extends Spaceship {
 		super.setLocation(new Point2D(x, y));
 	}
 
+	public void spawnPlayer1(Dimension2D gameboardSize) {
+		double x = (gameboardSize.getWidth() - getSize().getWidth()) * 0.33;
+		double y = (gameboardSize.getHeight() - getSize().getHeight()) * 0.8;
+		super.setLocation(new Point2D(x, y));
+	}
+
+	public void spawnPlayer2(Dimension2D gameboardSize) {
+		double x = (gameboardSize.getWidth() - getSize().getWidth()) * 0.66;
+		double y = (gameboardSize.getHeight() - getSize().getHeight()) * 0.8;
+		super.setLocation(new Point2D(x, y));
+	}
+
 	@Override
 	public LaserBeam shoot() {
 		LaserBeam laserbeam = new LaserBeam(true, getLocation().add(getSize().getWidth() / 2, -getSize().getHeight()),
