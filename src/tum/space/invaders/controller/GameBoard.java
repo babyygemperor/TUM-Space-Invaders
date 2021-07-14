@@ -11,6 +11,7 @@ import tum.space.invaders.model.spaceship.Spaceship;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
 
@@ -59,7 +60,7 @@ public class GameBoard {
 
 	// creates a nice lineup of enemyspaceships
 	private void createCars() {
-		for (double x = 0; x < 2.0; x++) {
+		for (double x = 0; x < 12.0; x++) {
 			for (double y = 0; y < 5.0; y++) {
 				EnemySpaceship enemy = new EnemySpaceship(this,
 						(0.2 * this.getSize().getWidth()) + (0.05 * this.getSize().getWidth() * x),
@@ -224,52 +225,57 @@ public class GameBoard {
 					}
 				}
 			}
-			for (LaserBeam laser : this.activeLaserbeams) {
-				if (!laserBeam.hit() && !laserBeam.equals(laser)) {
-					Point2D p2 = laser.getLocation();
-					Dimension2D d2 = laser.getSize();
+
+			try {
+				for (LaserBeam laser : this.activeLaserbeams) {
+					if (!laserBeam.hit() && !laserBeam.equals(laser)) {
+						Point2D p2 = laser.getLocation();
+						Dimension2D d2 = laser.getSize();
+
+						boolean above = p1.getY() + d1.getHeight() < p2.getY();
+						boolean below = p1.getY() > p2.getY() + d2.getHeight();
+						boolean right = p1.getX() + d1.getWidth() < p2.getX();
+						boolean left = p1.getX() > p2.getX() + d2.getWidth();
+
+						if (!above && !below && !right && !left) {
+							laserBeam.setHit();
+							laser.setHit();
+							crashSoundEffectPlayer.playMusic();
+							beamsToRemove.add(laserBeam);
+							beamsToRemove.add(laser);
+						}
+					}
+
+					// detects if a Laserbeam hits the PlayerSpaceship hitbox
+					Point2D p2 = player.getPlayerSpaceship().getLocation();
+					Point2D playerp2 = player2.getPlayerSpaceship().getLocation();
+					Dimension2D d2 = player.getPlayerSpaceship().getSize();
+					Dimension2D player2d2 = player2.getPlayerSpaceship().getSize();
 
 					boolean above = p1.getY() + d1.getHeight() < p2.getY();
 					boolean below = p1.getY() > p2.getY() + d2.getHeight();
 					boolean right = p1.getX() + d1.getWidth() < p2.getX();
 					boolean left = p1.getX() > p2.getX() + d2.getWidth();
 
+					boolean above2 = p1.getY() + d1.getHeight() < playerp2.getY();
+					boolean below2 = p1.getY() > playerp2.getY() + player2d2.getHeight();
+					boolean right2 = p1.getX() + d1.getWidth() < playerp2.getX();
+					boolean left2 = p1.getX() > playerp2.getX() + player2d2.getWidth();
+
 					if (!above && !below && !right && !left) {
-						laserBeam.setHit();
-						laser.setHit();
+						player.getPlayerSpaceship().disappear();
 						crashSoundEffectPlayer.playMusic();
 						beamsToRemove.add(laserBeam);
-						beamsToRemove.add(laser);
 					}
-			}
 
-				// detects if a Laserbeam hits the PlayerSpaceship hitbox
-				Point2D p2 = player.getPlayerSpaceship().getLocation();
-				Point2D playerp2 = player2.getPlayerSpaceship().getLocation();
-				Dimension2D d2 = player.getPlayerSpaceship().getSize();
-				Dimension2D player2d2 = player2.getPlayerSpaceship().getSize();
-
-				boolean above = p1.getY() + d1.getHeight() < p2.getY();
-				boolean below = p1.getY() > p2.getY() + d2.getHeight();
-				boolean right = p1.getX() + d1.getWidth() < p2.getX();
-				boolean left = p1.getX() > p2.getX() + d2.getWidth();
-
-				boolean above2 = p1.getY() + d1.getHeight() < playerp2.getY();
-				boolean below2 = p1.getY() > playerp2.getY() + player2d2.getHeight();
-				boolean right2 = p1.getX() + d1.getWidth() < playerp2.getX();
-				boolean left2 = p1.getX() > playerp2.getX() + player2d2.getWidth();
-	
-				if (!above && !below && !right && !left) {
-					player.getPlayerSpaceship().disappear();
-					crashSoundEffectPlayer.playMusic();
-					beamsToRemove.add(laserBeam);
+					if (!above2 && !below2 && !right2 && !left2) {
+						player2.getPlayerSpaceship().disappear();
+						crashSoundEffectPlayer.playMusic();
+						beamsToRemove.add(laserBeam);
+					}
 				}
-
-				if (!above2 && !below2 && !right2 && !left2) {
-					player2.getPlayerSpaceship().disappear();
-					crashSoundEffectPlayer.playMusic();
-					beamsToRemove.add(laserBeam);
-				}
+			} catch (ConcurrentModificationException e) {
+				e.printStackTrace();
 			}
 		}
 		if (beamsToRemove.size() > 0) {
