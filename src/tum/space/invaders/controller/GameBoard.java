@@ -9,7 +9,6 @@ import tum.space.invaders.model.spaceship.EnemySpaceship;
 import tum.space.invaders.model.spaceship.PlayerSpaceship;
 import tum.space.invaders.model.spaceship.Spaceship;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -55,11 +54,11 @@ public class GameBoard {
 		player2.getPlayerSpaceship().spawnPlayer2(this.size);
 		this.player2.setup();
 
-		createCars();
+		spawnEnemySpaceships();
 	}
 
 	// creates a nice lineup of enemyspaceships
-	private void createCars() {
+	private void spawnEnemySpaceships() {
 		for (double x = 0; x < 12.0; x++) {
 			for (double y = 0; y < 5.0; y++) {
 				EnemySpaceship enemy = new EnemySpaceship(this,
