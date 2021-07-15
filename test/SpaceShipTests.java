@@ -65,12 +65,14 @@ public class SpaceShipTests {
 
     @Test
     public void testEnemySpaceshipMetadata() {
-        EnemySpaceship enemySpaceships = new EnemySpaceship(new GameBoard(GameBoardUI.getPreferredSize()), 0, 0);
+        GameBoard gameBoard = new GameBoard(GameBoardUI.getPreferredSize());
+        //EnemySpaceship enemySpaceships = new EnemySpaceship(gameBoard, 0, 0);
 
-        assertEquals("enemy.gif", enemySpaceships.getIconFilePath());
-        assertEquals(0, enemySpaceships.getSPEED());
-        assertFalse(enemySpaceships.gotHit());
-        assertEquals(new Point2D(615, 139), enemySpaceships.getLocation());
+        assertEquals("enemy.gif", gameBoard.getEnemySpaceships().get(0).getIconFilePath());
+        assertEquals(0, gameBoard.getEnemySpaceships().get(0).getSPEED());
+        assertFalse(gameBoard.getEnemySpaceships().get(0).gotHit());
+
+        assertEquals(60, gameBoard.getEnemySpaceships().size());
     }
 
     @Test
