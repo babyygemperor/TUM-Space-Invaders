@@ -199,6 +199,7 @@ public class GameBoard {
 		List<LaserBeam> beamsToRemove = new ArrayList<>();
 		List<EnemySpaceship> spaceshipsToRemove = new ArrayList<>();
 
+		try {
 		for (LaserBeam laserBeam : this.activeLaserbeams) {
 			Point2D p1 = laserBeam.getLocation();
 			Dimension2D d1 = laserBeam.getSize();
@@ -225,7 +226,6 @@ public class GameBoard {
 				}
 			}
 
-			try {
 				for (LaserBeam laser : this.activeLaserbeams) {
 					if (!laserBeam.hit() && !laserBeam.equals(laser)) {
 						Point2D p2 = laser.getLocation();
@@ -273,9 +273,9 @@ public class GameBoard {
 						beamsToRemove.add(laserBeam);
 					}
 				}
-			} catch (ConcurrentModificationException e) {
-				e.printStackTrace();
 			}
+		} catch (ConcurrentModificationException e) {
+			e.printStackTrace();
 		}
 		if (beamsToRemove.size() > 0) {
 			for (LaserBeam laserBeam: beamsToRemove) {
