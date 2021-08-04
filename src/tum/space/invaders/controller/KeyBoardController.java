@@ -32,7 +32,10 @@ public class KeyBoardController {
                     controlledSpaceship.update();
                 } else if (keyEvent.getCode() == KeyCode.K) {
                     controlledSpaceship.shoot();
+<<<<<<< HEAD
                     gameBoardUI.getGameBoard().setScore(gameBoardUI.getGameBoard().getScore() + 1);
+=======
+>>>>>>> master-holder
                 }
             }
         }

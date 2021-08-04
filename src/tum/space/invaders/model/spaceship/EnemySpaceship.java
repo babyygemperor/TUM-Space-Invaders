@@ -1,8 +1,14 @@
 package tum.space.invaders.model.spaceship;
 
+<<<<<<< HEAD
 import tum.space.invaders.controller.LaserBeam;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
+=======
+import javafx.geometry.Dimension2D;
+import javafx.geometry.Point2D;
+import tum.space.invaders.controller.LaserBeam;
+>>>>>>> master-holder
 
 
 public class EnemySpaceship extends Spaceship {

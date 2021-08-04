@@ -3,9 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.tum.in.ase.eist</groupId>
+<<<<<<< HEAD
     <artifactId>T03E01-Implementation-Exercise</artifactId>
     <packaging>jar</packaging>
     <version>1.0</version>
+=======
+    <artifactId>T04E01-Testing-Exercise</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <name>T04E01-Testing Exercise</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+>>>>>>> master-holder
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -14,6 +24,7 @@
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
+<<<<<<< HEAD
             <artifactId>javafx-controls</artifactId>
             <version>16</version>
         </dependency>
@@ -22,6 +33,29 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+=======
+            <artifactId>javafx-swing</artifactId>
+            <version>11-ea+24</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>16</version>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>4.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+>>>>>>> master-holder
     <build>
         <sourceDirectory>${project.basedir}/src</sourceDirectory>
         <resources>
@@ -41,4 +75,8 @@
             </plugin>
         </plugins>
     </build>
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> master-holder

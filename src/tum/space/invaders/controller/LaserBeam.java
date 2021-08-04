@@ -1,7 +1,10 @@
 package tum.space.invaders.controller;
 
 import javafx.geometry.Point2D;
+<<<<<<< HEAD
 import tum.space.invaders.controller.music.CrashSound;
+=======
+>>>>>>> master-holder
 
 public class LaserBeam {
 
@@ -15,8 +18,14 @@ public class LaserBeam {
         this.location = location;
     }
 
+<<<<<<< HEAD
     public void hit() {
         //TODO implement the logic for getting hti
+=======
+    public boolean hit() {
+        //TODO implement the logic for getting hti
+    	return false;
+>>>>>>> master-holder
     }
 
 

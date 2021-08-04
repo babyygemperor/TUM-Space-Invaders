@@ -1,5 +1,10 @@
 package tum.space.invaders;
 
+<<<<<<< HEAD
+=======
+import java.util.Arrays;
+
+>>>>>>> master-holder
 public final class TUMSpaceInvaders {
 
     /**

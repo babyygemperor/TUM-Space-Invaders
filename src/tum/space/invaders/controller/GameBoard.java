@@ -9,7 +9,10 @@ import tum.space.invaders.model.spaceship.Spaceship;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Random;
+=======
+>>>>>>> master-holder
 
 public class GameBoard {
 
@@ -35,7 +38,11 @@ public class GameBoard {
         this.explodedSpaceships = new ArrayList<>();
 
 
+<<<<<<< HEAD
         PlayerSpaceship playerSpaceship = new PlayerSpaceship(this.size);
+=======
+        PlayerSpaceship playerSpaceship = new PlayerSpaceship(this, this.size);
+>>>>>>> master-holder
         this.player = new Player(playerSpaceship);
         this.player.setup();
 
@@ -111,12 +118,18 @@ public class GameBoard {
         this.score = score;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master-holder
     public boolean isRunning() {
         return this.running;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master-holder
     public void update() {
         moveSpaceships();
     }
