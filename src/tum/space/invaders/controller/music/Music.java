@@ -1,9 +1,5 @@
 package tum.space.invaders.controller.music;
 
-<<<<<<< HEAD
-import javafx.scene.media.AudioClip;
-=======
->>>>>>> master-holder
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -30,11 +26,7 @@ public abstract class Music {
         this.musicPlayer.play();
     }
 
-<<<<<<< HEAD
-    public void playOnce() {
-=======
     protected void playOnce() {
->>>>>>> master-holder
         if (isPlayingMusic()) {
             return;
         }

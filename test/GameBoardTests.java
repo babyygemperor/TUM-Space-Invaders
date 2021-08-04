@@ -26,7 +26,7 @@ public class GameBoardTests {
         assertFalse(gameBoard.isRunning());
 
         gameBoard.setBackgroundMusicPlayer(new BackgroundMusic());
-        gameBoard.startGame();
+        gameBoard.startGame(false);
         assertTrue(gameBoard.isRunning());
         assertEquals(GameOutcome.RUNNING, gameBoard.getGameOutcome());
 

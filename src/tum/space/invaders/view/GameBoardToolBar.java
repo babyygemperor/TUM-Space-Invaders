@@ -14,6 +14,8 @@ public class GameBoardToolBar extends ToolBar {
     private final Button stop;
     private final Text score;
 
+    private boolean multiPlayer;
+
     public GameBoardToolBar(Stage stage) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
@@ -30,26 +32,32 @@ public class GameBoardToolBar extends ToolBar {
     }
 
     public void initialiseActions(GameBoardUI gameBoardUI) {
+        ButtonType singlePlayer = new ButtonType("Single Player", ButtonBar.ButtonData.OK_DONE);
+        ButtonType multiPlayer = new ButtonType("Multiplayer Player", ButtonBar.ButtonData.OK_DONE);
         this.start.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, """
 					WELCOME TUM TO SPACE INVADERS!
-					An excellent game brought to you by excellent students
-					The game starts 3s after you click OK""", ButtonType.OK);
+					An excellent game brought to you by excellent students""", singlePlayer, multiPlayer);
             alert.setTitle("Preface");
             alert.setHeaderText("2021 TUM Space Invaders");
 
             Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.isPresent() && result.get() == ButtonType.OK)
-                gameBoardUI.startGame();
+            if (result.isPresent() && result.get() == singlePlayer) {
+                this.multiPlayer = false;
+                gameBoardUI.startGame(false);
+            } else if (result.isPresent() && result.get() == multiPlayer) {
+                this.multiPlayer = true;
+                gameBoardUI.startGame(true);
+            }
             else {
+                this.multiPlayer = false;
                 gameBoardUI.stopGame();
             }
         });
 
         this.stop.setOnAction(event -> {
             gameBoardUI.stopGame();
-
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to stop the game?", ButtonType.YES,
                     ButtonType.NO);
             alert.setTitle("Stop Game Confirmation");
@@ -60,8 +68,7 @@ public class GameBoardToolBar extends ToolBar {
             if (result.isPresent() && result.get() == ButtonType.YES) {
                 gameBoardUI.setup();
             } else {
-                // continue running
-                gameBoardUI.startGame();
+                gameBoardUI.startGame(this.multiPlayer);
             }
         });
     }

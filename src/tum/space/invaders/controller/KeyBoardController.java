@@ -10,11 +10,13 @@ import tum.space.invaders.view.GameBoardUI;
 public class KeyBoardController {
 
     private final Spaceship controlledSpaceship;
+    private final Spaceship secondSpaceship;
     private final GameBoardUI gameBoardUI;
 
-    public KeyBoardController(GameBoardUI gameBoardUI, Spaceship controlledSpaceship) {
+    public KeyBoardController(GameBoardUI gameBoardUI, Spaceship controlledSpaceship, Spaceship secondSpaceship) {
         this.gameBoardUI = gameBoardUI;
         this.controlledSpaceship = controlledSpaceship;
+        this.secondSpaceship = secondSpaceship;
     }
 
     private final EventHandler<KeyEvent> keyPressed = new EventHandler<>() {
@@ -30,12 +32,26 @@ public class KeyBoardController {
                     controlledSpaceship.setDirection(true);
                     controlledSpaceship.move();
                     controlledSpaceship.update();
-                } else if (keyEvent.getCode() == KeyCode.K) {
-                    controlledSpaceship.shoot();
-<<<<<<< HEAD
-                    gameBoardUI.getGameBoard().setScore(gameBoardUI.getGameBoard().getScore() + 1);
-=======
->>>>>>> master-holder
+                } else if (keyEvent.getCode() == KeyCode.W) {
+                    if (!controlledSpaceship.gotHit()) {
+                        controlledSpaceship.shoot();
+                    }
+                }
+
+                if (gameBoardUI.isMultiPlayer()) {
+                    if (keyEvent.getCode() == KeyCode.J) {
+                        secondSpaceship.setDirection(false);
+                        secondSpaceship.move();
+                        secondSpaceship.update();
+                    } else if (keyEvent.getCode() == KeyCode.L) {
+                        secondSpaceship.setDirection(true);
+                        secondSpaceship.move();
+                        secondSpaceship.update();
+                    } else if (keyEvent.getCode() == KeyCode.I) {
+                        if (!secondSpaceship.gotHit()) {
+                            secondSpaceship.shoot();
+                        }
+                    }
                 }
             }
         }

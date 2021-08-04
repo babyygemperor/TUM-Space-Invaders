@@ -3,17 +3,10 @@ package tum.space.invaders;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-<<<<<<< HEAD
-import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.scene.input.KeyEvent;
-=======
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
->>>>>>> master-holder
 import tum.space.invaders.view.GameBoardToolBar;
 import tum.space.invaders.view.GameBoardUI;
 
@@ -37,11 +30,6 @@ public class TUMSpaceInvadersApplication extends Application {
         Pane layout = new Pane(gameBoardUI, gameBoardToolBar);
         Scene scene = new Scene(layout);
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master-holder
         scene.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardUI.getKeyBoardController().getKeyPressed());
 
         stage.setTitle("TUM Space Invaders");
